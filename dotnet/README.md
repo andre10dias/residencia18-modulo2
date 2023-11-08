@@ -1,10 +1,10 @@
 # dotnet
 
-Criar projeto
+Criar projeto: 
 dotnet new console
 
-buildar
+buildar: 
 dotnet build
 
-executar
+executar: 
 dornet run
