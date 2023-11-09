@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de cadastro</title>
+</head>
+<body>
+    <h1>Cadastro de interessados</h1>
+    <form action="" method="post">
+        <div style="background-color: lightgray; padding: 10px; max-width: 42%;">
+            <label for="nome">
+                Nome:
+            </label><br/>
+            <input type="text" name="nome" id="nome"><br/>
+            <br/>
+    
+            <label for="endereco">
+                Endereço:
+            </label><br/>
+            <input type="text" name="endereco" id="endereco"><br/>
+            <br/>
+
+            <label for="cep">
+                CEP:
+            </label><br/>
+            <input type="text" name="cep" id="cep"><br/>
+            <br/>
+    
+            <label for="email">
+                E-mail:
+            </label><br/>
+            <input type="text" name="email" id="email"><br/>
+            <br/>
+
+            <label for="cidade">
+                Cidade:
+            </label><br/>
+            <select name="cidade" id="cidade" style="width: 185px;">
+                <option value="" selected></option>
+                <option value="Ilheus">Ilhéus</option>
+                <option value="Salvador">Salvador</option>
+                <option value="Itabuna">Itabuna</option>
+                <option value="Sto Antonio">Santo Antônio de Jesus</option>
+            </select><br/>
+            <br/>
+    
+            <label for="pais">
+                País:
+            </label><br/>
+            <select name="pais" id="pais" style="width: 185px;">
+                <option value="" selected></option>
+                <option value="Brasil">Brasil</option>
+                <option value="Franca">França</option>
+                <option value="EUA">EUA</option>
+                <option value="Argentina">Argentina</option>
+            </select><br/>
+            <br/>
+    
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>
