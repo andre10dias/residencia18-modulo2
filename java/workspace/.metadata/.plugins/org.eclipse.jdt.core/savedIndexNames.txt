@@ -1,5 +1,0 @@
-INDEX VERSION 1.134+C:\Residevs - Módulo 2\Java\workspace\.metadata\.plugins\org.eclipse.jdt.core
-1650449417.index
-2982220125.index
-3220698868.index
-1865797976.index
