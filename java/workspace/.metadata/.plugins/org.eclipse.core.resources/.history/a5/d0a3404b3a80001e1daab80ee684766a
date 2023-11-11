@@ -1,0 +1,10 @@
+
+public class Onibus extends Automovel {
+
+	public Onibus() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+}

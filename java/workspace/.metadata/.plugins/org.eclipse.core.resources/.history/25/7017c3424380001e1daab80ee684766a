@@ -1,0 +1,44 @@
+package PraticaP01;
+
+import java.util.Scanner;
+
+public class Aplicacao {
+
+	public static void main(String[] args) {
+		Scanner entrada = new Scanner(System.in);
+		String a, b, operacao;
+		Calculadora calculadora = new Calculadora();
+
+		System.out.println("Informe o valor do primeiro termo: ");
+		a = entrada.nextLine();
+		
+		System.out.println("Informe o valor do segundo termo: ");
+		b = entrada.nextLine();
+		
+		System.out.println("Informe a operação: ");
+		System.out.println("[ 1 ] Soma\t[ 2 ] Subtração");
+		System.out.println("[ 3 ] Divisão\t[ 4 ] Multiplicação");
+		operacao = entrada.nextLine();
+		
+		calculadora.setA(Integer.parseInt(a));
+		calculadora.setB(Integer.parseInt(b));
+		
+		switch(operacao) {
+		  case "1":
+		    System.out.println(calculadora.getA());
+		    break;
+		  case "2":
+		    // code block
+		    break;
+		  case "3":
+			    // code block
+			    break;
+		  case "4":
+		    // code block
+		    break;  
+		  default:
+		    // code block
+		}
+	}
+
+}

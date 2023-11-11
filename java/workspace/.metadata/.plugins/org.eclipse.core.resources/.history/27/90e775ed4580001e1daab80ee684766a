@@ -1,0 +1,9 @@
+package Calculadora;
+
+public class ConversorTemperatura {
+
+	public ConversorTemperatura() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

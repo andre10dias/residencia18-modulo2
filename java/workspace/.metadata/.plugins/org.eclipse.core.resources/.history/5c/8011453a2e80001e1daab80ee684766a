@@ -1,0 +1,16 @@
+
+public class Livro {
+	
+	private int numeroPaginas;
+
+	public Livro() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Livro(int numeroPagianas) {
+		this.numeroPaginas = numeroPaginas;
+	}
+	
+	
+
+}

@@ -1,0 +1,18 @@
+package Conversor;
+
+public class ConversorTemperatura {
+	private double temperatura, c, f;
+	
+	public ConversorTemperatura() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public double converterParaCelsius(double f) {
+		return (f - 32) / (9 / 5);
+	}
+	
+	public double converterParaFahrenheit(double c) {
+		return c * (9 / 5) + 32;
+	}
+
+}

@@ -1,0 +1,15 @@
+
+public class Automovel {
+	
+	String marca;
+	String modelo;
+
+	public Automovel() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void combustivel() {
+		
+	}
+
+}

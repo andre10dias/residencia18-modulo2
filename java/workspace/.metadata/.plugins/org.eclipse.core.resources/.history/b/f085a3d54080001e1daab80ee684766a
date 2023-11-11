@@ -1,0 +1,9 @@
+package PraticaP01;
+
+public class ConversorTemperatura {
+
+	public ConversorTemperatura() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

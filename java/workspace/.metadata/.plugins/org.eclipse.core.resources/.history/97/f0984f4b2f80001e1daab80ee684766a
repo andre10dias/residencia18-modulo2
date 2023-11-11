@@ -1,0 +1,8 @@
+
+public class Cachorro {
+
+	public Cachorro() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

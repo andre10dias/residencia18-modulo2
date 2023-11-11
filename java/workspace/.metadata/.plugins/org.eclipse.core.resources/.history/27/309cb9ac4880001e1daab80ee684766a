@@ -1,0 +1,47 @@
+package Calculadora;
+
+public class Calculadora {
+
+	private int a, b;
+	
+	public Calculadora() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getA() {
+		return a;
+	}
+
+	public void setA(int a) {
+		this.a = a;
+	}
+
+	public int getB() {
+		return b;
+	}
+
+	public void setB(int b) {
+		this.b = b;
+	}
+
+	public int soma(int a, int b) {
+		return a + b;
+	}
+	
+	public int subtracao(int a, int b) {
+		return a - b;
+	}
+	
+	public int divisao(int a, int b) {
+		if (b != 0) {			
+			return a / b;
+		}
+		
+		return 0;
+	}
+	
+	public int multiplicacao(int a, int b) {
+		return a * b;
+	}
+
+}
