@@ -1,10 +1,5 @@
-# dotnet
+# Prática Orientada – .NET - PO-01
 
-Criar projeto: 
-dotnet new console
+## Carlos André Dias
 
-buildar: 
-dotnet build
-
-executar: 
-dornet run
+### Repositório para as atividades de prática orientada
