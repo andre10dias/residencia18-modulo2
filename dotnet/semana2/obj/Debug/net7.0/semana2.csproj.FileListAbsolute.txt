@@ -1,0 +1,15 @@
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/bin/Debug/net7.0/semana2
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/bin/Debug/net7.0/semana2.deps.json
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/bin/Debug/net7.0/semana2.runtimeconfig.json
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/bin/Debug/net7.0/semana2.dll
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/bin/Debug/net7.0/semana2.pdb
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.csproj.AssemblyReference.cache
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.GeneratedMSBuildEditorConfig.editorconfig
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.AssemblyInfoInputs.cache
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.AssemblyInfo.cs
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.csproj.CoreCompileInputs.cache
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.dll
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/refint/semana2.dll
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.pdb
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/semana2.genruntimeconfig.cache
+/home/carlos-andre-dias/residencia18-modulo2/dotnet/semana2/obj/Debug/net7.0/ref/semana2.dll
