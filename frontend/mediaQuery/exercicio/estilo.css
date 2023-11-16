@@ -1,0 +1,41 @@
+.caixa {
+    background-color: blue;
+    width: 200px;
+    height:200px;
+}
+
+@media (min-width: 360px) and (max-width: 772px){
+    h4 {
+        font-size: 12px;
+    }
+
+    .caixa{
+        background-color: red;
+        width: 50px;
+        height:50px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1100px){
+    h4 {
+        font-size: 16px;
+    }
+
+    .caixa{
+        background-color: orange;
+        width: 50px;
+        height:50px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1600px){
+    h4 {
+        font-size: 20px;
+    }
+
+    .caixa{
+        background-color: green;
+        width: 50px;
+        height:50px;
+    }
+}

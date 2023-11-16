@@ -1,0 +1,36 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+ol {
+    font-size: medium;
+}
+
+li[value] {
+    color: chocolate;
+    font-size: xx-large;
+}
+
+li[value] > a {
+    color: cornflowerblue;
+}
+
+.nots {
+    color: brown;
+    font-size: small;
+}
+
+#sulbahia {
+    color: blueviolet;
+    font-size: large;
+}

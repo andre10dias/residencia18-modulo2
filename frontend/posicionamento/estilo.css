@@ -1,0 +1,27 @@
+#caixa {
+    position: relative;
+    background-color: blueviolet;
+    width: 100px;
+    height: 100px;
+}
+
+#caixa2 {
+    background-color: red;
+    width: 30px;
+    height: 30px;
+}
+
+#caixa3 {
+    background-color: yellow;
+    width: 30px;
+    height: 30px;
+}
+
+#caixa4 {
+    position: absolute;
+    background-color: green;
+    width: 50px;
+    height: 50px;
+    left: 10px;
+    top: 10px;
+}
