@@ -11,7 +11,7 @@
     color: white;
 }
 
-#caixa-interna {
+.caixa-interna {
     background-color: blue;
     padding: 1px;
 }
