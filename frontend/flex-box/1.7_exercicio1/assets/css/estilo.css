@@ -1,0 +1,63 @@
+img {
+    width: 75%;
+    height: 40%;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+ul {
+    list-style-type: "\2713";
+}
+
+li {
+    text-align: left;
+}
+
+.container-destinos {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.roteiro-destino {
+    font-family: 'Merriweather', serif;
+    font-weight: 500;
+}
+
+.roteiros-viagens {
+    background-color: plum;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 300px;
+    height: 460px;
+}
+
+.roteiro-incluso {
+    align-items: center;
+    justify-content: center
+}
+
+.roteiro-preco {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Merriweather', serif;
+    margin-bottom: 5px;
+}
+
+.roteiro-obs, .roteiro-parcelamento {
+    font-size: 12px;
+    font-family: 'Merriweather', serif;
+    margin-bottom: 5px;
+}
+
+.roteiro-comprar {
+    background-color: greenyellow;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
