@@ -24,7 +24,6 @@ public class Configuracao {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 	
 	public String getAlfabeto() {
 		return alfabeto;
