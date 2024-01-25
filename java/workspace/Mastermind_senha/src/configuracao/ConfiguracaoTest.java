@@ -38,7 +38,7 @@ class ConfiguracaoTest {
 		alfabeto = "a";
 				
 		try {
-					configuracao.setAlfabeto(alfabeto);
+			configuracao.setAlfabeto(alfabeto);
 		} catch (Exception e) {
 			// temos que ter certeza que a mensagem está correta
 			assertEquals("O alfabeto deve possuir mais de 1 caracter", e.getMessage());
