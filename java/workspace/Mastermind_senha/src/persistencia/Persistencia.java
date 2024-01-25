@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Persistencia {
-	private static final String PATH_CONFIG = "src" + File.separator + "Bd" + File.separator + "config.json";
+	private static final String PATH_CONFIG = "src" + File.separator + "bd" + File.separator + "config.json";
 	
 	public static JSONArray recuperarDados(Class<?> classe, List<String> nomesAtributos) {
 		File arquivo = new File(PATH_CONFIG);
