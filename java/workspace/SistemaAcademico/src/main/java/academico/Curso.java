@@ -1,9 +1,12 @@
 package academico;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Curso {
@@ -14,6 +17,9 @@ public class Curso {
 	
 	private String nome;
 	private Integer numSemestres;
+	
+	@OneToMany //(mappedBy = "Curso")
+	List<Estudante> listaEstudantes;
 	
 	public Curso() {
 	}
@@ -45,6 +51,12 @@ public class Curso {
 
 	public void setNumSemestres(Integer numSemestres) {
 		this.numSemestres = numSemestres;
+	}
+
+	@Override
+	public String toString() {
+		return "Curso [Id=" + Id + ", nome=" + nome + ", numSemestres=" + numSemestres + ", listaEstudantes="
+				+ listaEstudantes + "]";
 	}
 
 }
