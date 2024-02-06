@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Estudante {
@@ -16,6 +17,9 @@ public class Estudante {
 	private String email;
 	private String matricula;
 	
+	@ManyToOne
+	private Curso curso;
+	
 	public Estudante() {}
 	
 	public Estudante(String nome, String email, String matricula) {
@@ -24,6 +28,13 @@ public class Estudante {
 		this.matricula = matricula;
 	}
 	
+	public Estudante(String nome, String email, String matricula, Curso curso) {
+		this.nome = nome;
+		this.email = email;
+		this.matricula = matricula;
+		this.curso = curso;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -54,6 +65,14 @@ public class Estudante {
 	
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 	@Override
