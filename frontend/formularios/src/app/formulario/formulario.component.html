@@ -1,0 +1,21 @@
+<h1>Formuário template driven</h1>
+
+<div id="form-reactive">
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div>
+            <label for="email">E-mail:</label>
+            <div>
+                <input type="email" name="email" ngModel>
+            </div>
+        </div>
+
+        <div>
+            <label for="senha">Senha:</label>
+            <div>
+                <input type="password" name="senha" ngModel>
+            </div>
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
