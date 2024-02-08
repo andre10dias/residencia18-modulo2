@@ -1,0 +1,54 @@
+<h1>Formuário reativo</h1>
+
+<div id="form-reactive">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="estacao">Nome da estação climática:</label>
+            <div>
+                <input 
+                    type="text" 
+                    name="estacao" 
+                    formControlName="estacao"
+                >
+            </div>
+        </div>
+
+        <div>
+            <label for="email">E-mail de notificação:</label>
+            <div>
+                <input 
+                    type="email" 
+                    name="email" 
+                    formControlName="email"
+                >
+            </div>
+        </div>
+
+        <div>
+            <label for="localizacao">Localização:</label>
+            <div>
+                <input 
+                    type="localizacao" 
+                    name="localizacao" 
+                    formControlName="localizacao"
+                >
+            </div>
+        </div>
+
+        <div>
+            <label for="status">Status de instalação:</label>
+            <div>
+                <select name="status" 
+                    formControlName="status"
+                >
+                    <option value="" selected></option>
+                    <option value="instalado">Instalado</option>
+                    <option value="nao-instalado">Não instalado</option>
+                    <option value="operante">Operante</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
