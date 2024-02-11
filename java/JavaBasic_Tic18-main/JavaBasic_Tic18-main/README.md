@@ -1,0 +1,1 @@
+# Esse repositorio contem arquivos de todas as atividades realizadas da disciplina de Java basico individual.
