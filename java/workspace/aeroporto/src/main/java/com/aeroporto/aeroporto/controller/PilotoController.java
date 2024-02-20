@@ -11,12 +11,13 @@ import com.aeroporto.aeroporto.model.Piloto;
 import com.aeroporto.aeroporto.repository.PilotoRepository;
 
 @RestController
+@RequestMapping("/pilotos")
 public class PilotoController {
 	
 	@Autowired
 	PilotoRepository repository;
 	
-	@GetMapping("/listarPiloto")
+	@GetMapping
 	public List<Piloto> listarPilotos() {
 		List<Piloto> listaPilotos = repository.findAll();
 		return listaPilotos;
