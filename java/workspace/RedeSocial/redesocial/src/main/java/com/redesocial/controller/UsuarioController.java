@@ -1,37 +1,51 @@
 package com.redesocial.controller;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.redesocial.DTO.UsuarioDTO;
+import com.redesocial.controller.dto.UsuarioDTO;
+import com.redesocial.controller.form.UserForm;
+import com.redesocial.modelo.Usuario;
+import com.redesocial.repository.UsuarioRepository;
+
+
 
 
 @RestController
+@RequestMapping("/usuarios")
 public class UsuarioController {
+	
+	@Autowired
+	UsuarioRepository repository;
 	
 	private Integer valor = 99;
 	private Integer sequencia = 1;
 	private Integer primo = 2;
 	
-	@RequestMapping("/usuarios")
-	public List<UsuarioDTO> listarUsuarios() {
-		List<UsuarioDTO> lista = new ArrayList<>();
-		
-		UsuarioDTO u1 = new UsuarioDTO();
-		UsuarioDTO u2 = new UsuarioDTO();
-		UsuarioDTO u3 = new UsuarioDTO();
-		
-		lista.add(u1);
-		lista.add(u2);
-		lista.add(u3);
-		
-		return lista;
+	@GetMapping()
+	public List<Usuario> listarUsuarios() {
+		return repository.findAll();
 	}
+	
+	@PostMapping()
+	public ResponseEntity<UsuarioDTO> inserir(@RequestBody UserForm form, UriComponentsBuilder uriBuilder) {
+		Usuario u = form.toUsuario();
+		repository.save(u);
+		
+		URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(u.getId()).toUri();
+		return ResponseEntity.created(uri).body(new UsuarioDTO(u));
+	}
+	
 	
 	@RequestMapping("/valor")
 	public Integer getValor() {
