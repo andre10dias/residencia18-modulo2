@@ -1,0 +1,7 @@
+.invalid-field {
+    border: 1px solid red;
+}
+
+mat-error {
+    color: red;
+}

@@ -1,0 +1,91 @@
+<form [formGroup]="atendimentosForm">
+    <div>
+        <div>
+            <mat-label>Nome do tutor</mat-label>
+            <div>
+                <input matInput formControlName="nomeTutor" 
+                    [ngClass]="{'invalid-field': atendimentosForm.get('nomeTutor')?.invalid && atendimentosForm.get('nomeTutor')?.touched}"
+                >
+                <div id="nome-tutor">
+                    <mat-error *ngIf="!atendimentosForm.get('nomeTutor')?.valid && atendimentosForm.get('nomeTutor')?.touched"
+                    >Campo obrigatório.</mat-error>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <mat-label>Nome do pet</mat-label>
+            <div id="nome-pet">
+                <input matInput formControlName="nomePet" 
+                    [ngClass]="{'invalid-field': atendimentosForm.get('nomePet')?.invalid && atendimentosForm.get('nomePet')?.touched}"
+                >
+                <div>
+                    <mat-error *ngIf="!atendimentosForm.get('nomePet')?.valid && atendimentosForm.get('nomePet')?.touched"
+                    >Campo obrigatório.</mat-error>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <mat-label>Data</mat-label>
+            <div>
+                <input matInput formControlName="data" placeholder="Nome de usuário sem espaços"
+                    [ngClass]="{'invalid-field': atendimentosForm.get('data')?.invalid && atendimentosForm.get('data')?.touched}"
+                >
+                <div id="data">
+                    <mat-error *ngIf="!atendimentosForm.get('data')?.valid && atendimentosForm.get('data')?.touched"
+                    >Campo obrigatório.</mat-error>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <mat-label>Tipo</mat-label>
+            <div>
+                <input matInput formControlName="tipo" 
+                    [ngClass]="{'invalid-field': atendimentosForm.get('tipo')?.invalid && atendimentosForm.get('tipo')?.touched}"
+                >
+                <div id="tipo">
+                    <mat-select formControlName="tipo" placeholder="Selecione...">
+                        <!-- @for (tipo of tipos; track tipo) {
+                            <mat-option [value]="tipo.value">{{tipo.viewValue}}</mat-option>
+                        } -->
+                    </mat-select>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <mat-label>Raça</mat-label>
+            <div>
+                <input matInput formControlName="raca" 
+                    [ngClass]="{'invalid-field': atendimentosForm.get('raca')?.invalid && atendimentosForm.get('raca')?.touched}"
+                >
+                <div id="raca">
+                    <mat-select formControlName="raca" placeholder="Selecione...">
+                        <!-- @for (raca of racas; track raca) {
+                            <mat-option [value]="raca.value">{{raca.viewValue}}</mat-option>
+                        } -->
+                    </mat-select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <mat-label>Observação</mat-label>
+        <div>
+            <input matInput formControlName="observacao" 
+                [ngClass]="{'invalid-field': atendimentosForm.get('observacao')?.invalid && atendimentosForm.get('observacao')?.touched}"
+            >
+            <div id="observacao">
+                <mat-error *ngIf="!atendimentosForm.get('observacao')?.valid && atendimentosForm.get('observacao')?.touched"
+                >Campo obrigatório.</mat-error>
+            </div>
+        </div>
+    </div>
+</form>
