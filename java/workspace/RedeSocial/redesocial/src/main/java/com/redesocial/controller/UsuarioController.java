@@ -42,7 +42,7 @@ public class UsuarioController {
 		Usuario u = form.toUsuario();
 		repository.save(u);
 		
-		URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(u.getId()).toUri();
+		URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(u.getId()).toUri();
 		return ResponseEntity.created(uri).body(new UsuarioDTO(u));
 	}
 	
