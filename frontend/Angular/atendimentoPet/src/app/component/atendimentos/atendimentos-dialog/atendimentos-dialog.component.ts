@@ -9,22 +9,21 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { Atendimento } from '../../model/atendimento';
+
+import { Atendimento } from '../../../model/atendimento';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrl: './dialog.component.css'
+  selector: 'app-atendimentos-dialog',
+  templateUrl: './atendimentos-dialog.component.html',
+  styleUrl: './atendimentos-dialog.component.css'
 })
-export class DialogComponent {
-
+export class AtendimentosDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
+    public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Atendimento,
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

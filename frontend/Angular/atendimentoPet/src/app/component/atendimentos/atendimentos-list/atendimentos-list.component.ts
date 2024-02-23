@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../../dialog/dialog.component';
 import { Atendimento } from '../../../model/atendimento';
+import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -28,7 +28,7 @@ export class AtendimentosListComponent {
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(AtendimentosDialogComponent, {
       // data: {name: this.name, animal: this.animal},
     });
 

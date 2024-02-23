@@ -12,7 +12,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { DialogModule } from '@angular/cdk/dialog';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,7 @@ import { DialogModule } from '@angular/cdk/dialog';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    AtendimentosModule,
-    DialogModule
+    AtendimentosModule
   ],
   providers: [
     provideAnimationsAsync()
