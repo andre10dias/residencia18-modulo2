@@ -1,10 +1,16 @@
 <div class="dialog-header">
-  <h2>{{titulo}}</h2>
+  <div class="dialog-close">
+    <button mat-button mat-dialog-close>X</button>
+  </div>
+  <div class="dialog-title">
+    <h2>{{titulo}}</h2>
+  </div>
 </div>
 <div class="dialog-conteiner">
     <mat-dialog-content>
         <app-atendimentos-form></app-atendimentos-form>
     </mat-dialog-content>
+    <hr>
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cancelar</button>
       <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->

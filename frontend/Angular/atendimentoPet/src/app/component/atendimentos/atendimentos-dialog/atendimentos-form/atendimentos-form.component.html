@@ -44,12 +44,13 @@
             <div>
                 <div id="tipo">
                     <mat-select formControlName="tipo" placeholder="Selecione..."
+                        (valueChange)="changeTipo($event)"
                         [ngClass]="{'invalid-field': atendimentosForm.get('tipo')?.invalid 
                             && atendimentosForm.get('tipo')?.touched}"
                     >
-                        <!-- @for (tipo of tipos; track tipo) {
+                        @for (tipo of tipos; track tipo) {
                             <mat-option [value]="tipo.value">{{tipo.viewValue}}</mat-option>
-                        } -->
+                        }
                     </mat-select>
                     <div>
                         <mat-error *ngIf="!atendimentosForm.get('tipo')?.valid && atendimentosForm.get('tipo')?.touched"
@@ -67,9 +68,9 @@
                         [ngClass]="{'invalid-field': atendimentosForm.get('raca')?.invalid 
                             && atendimentosForm.get('raca')?.touched}"
                     >
-                        <!-- @for (raca of racas; track raca) {
+                        @for (raca of racas; track raca) {
                             <mat-option [value]="raca.value">{{raca.viewValue}}</mat-option>
-                        } -->
+                        }
                     </mat-select>
                     <div>
                         <mat-error *ngIf="!atendimentosForm.get('raca')?.valid && atendimentosForm.get('raca')?.touched"

@@ -1,9 +1,23 @@
 .dialog-header {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30px 1fr;
     background-color: #3f51b5;
     color: #ffff;
     padding: 10px;
+}
+
+.dialog-title {
+    display: flex;
+    grid-row-start: 2;
+    justify-content: center;
+}
+
+.dialog-close {
+    grid-row-start: 1;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .dialog-conteiner {

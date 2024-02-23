@@ -34,6 +34,11 @@ form {
     grid-row-start: 4;
 }
 
+input[type="date"] {
+    width: 96%;
+    color: var(--mdc-dialog-supporting-text-color, rgba(0, 0, 0, 0.6));
+}
+
 #nome-tutor > input, #nome-pet > input, 
     #observacao > textarea {
     width: 100%;

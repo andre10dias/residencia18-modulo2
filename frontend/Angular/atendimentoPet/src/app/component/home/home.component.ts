@@ -13,11 +13,19 @@ export class HomeComponent implements AfterViewInit {
   currentIndex = 0;
   slides: any;
   totalSlides: any;
+  intervalId: any;
 
   ngAfterViewInit() {
     // Selecionar os slides após a visualização da view
     this.slides = document.querySelectorAll('.slide');
     this.totalSlides = this.slides.length;
+    this.startInterval();
+  }
+
+  startInterval() {
+    this.intervalId = setInterval(() => {
+      this.nextSlide();
+    }, 5000); // Mudança a cada 5 segundos
   }
 
   showSlide(index: number) {
