@@ -10,6 +10,10 @@ export class NavBarComponent {
 
   constructor(private route: Router) { }
 
+  rotaHome() {
+    this.route.navigate(['/home']);
+  }
+
   rotaAtendimentos() {
     this.route.navigate(['/atendimentos']);
   }
