@@ -10,7 +10,7 @@
 }
 
 .slide {
-    flex: 0 0 100%; /* Cada slide ocupa 80% da largura */
+    flex: 0 0 100%; /* Cada slide ocupa 100% da largura */
     text-align: center;
     padding: 20px;
 }

@@ -11,8 +11,8 @@ export class HomeComponent implements AfterViewInit {
   slide3: string = './assets/slide3.webp';
 
   currentIndex = 0;
-  slides: any; //NodeListOf<Element> = document.querySelectorAll('.slide');
-  totalSlides: any; //number = this.slides.length;
+  slides: any;
+  totalSlides: any;
 
   ngAfterViewInit() {
     // Selecionar os slides após a visualização da view
@@ -38,17 +38,11 @@ export class HomeComponent implements AfterViewInit {
   }
 
   prevSlide() {
-    console.log('Antes de chamar showSlide:', this.currentIndex);
-    // this.currentIndex -= 1;
     this.showSlide(this.currentIndex - 1);
-    console.log('Depois de chamar showSlide:', this.currentIndex);
   }
 
   nextSlide() {
-    console.log('Antes de chamar showSlide:', this.currentIndex);
-    // this.currentIndex += 1;
     this.showSlide(this.currentIndex + 1);
-    console.log('Depois de chamar showSlide:', this.currentIndex);
   }
 
 }

@@ -29,7 +29,7 @@
         <div>
             <mat-label>Data</mat-label>
             <div>
-                <input matInput formControlName="data" placeholder="Nome de usuário sem espaços"
+                <input matInput type="date" formControlName="data" placeholder="Nome de usuário sem espaços"
                     [ngClass]="{'invalid-field': atendimentosForm.get('data')?.invalid && atendimentosForm.get('data')?.touched}"
                 >
                 <div id="data">

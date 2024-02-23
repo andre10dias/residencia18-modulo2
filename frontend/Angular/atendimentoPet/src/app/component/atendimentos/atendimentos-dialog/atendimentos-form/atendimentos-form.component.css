@@ -4,6 +4,7 @@
 
 mat-error {
     color: red;
+    font-size: 10px;
 }
 
 form {

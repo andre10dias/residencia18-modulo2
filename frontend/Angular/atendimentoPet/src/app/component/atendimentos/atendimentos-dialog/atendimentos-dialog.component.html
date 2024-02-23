@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>{{titulo}}</h2>
+<div class="dialog-header">
+  <h2>{{titulo}}</h2>
+</div>
 <div class="dialog-conteiner">
     <mat-dialog-content>
-        <app-atendimentos-form (tituloForm)="atribuirTitulo($event)">
-        </app-atendimentos-form>
+        <app-atendimentos-form></app-atendimentos-form>
     </mat-dialog-content>
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cancelar</button>

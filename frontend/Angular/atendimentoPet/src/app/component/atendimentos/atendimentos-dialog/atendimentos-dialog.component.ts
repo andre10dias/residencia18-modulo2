@@ -18,7 +18,7 @@ import { Atendimento } from '../../../model/atendimento';
   styleUrl: './atendimentos-dialog.component.css'
 })
 export class AtendimentosDialogComponent {
-  titulo: string = '';
+  titulo: string = 'Cadastrar atendimentos';
 
   constructor(
     public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
@@ -27,10 +27,5 @@ export class AtendimentosDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  atribuirTitulo(titulo: string) {
-    console.log('dialog: ' + titulo);
-    this.titulo = titulo;
   }
 }

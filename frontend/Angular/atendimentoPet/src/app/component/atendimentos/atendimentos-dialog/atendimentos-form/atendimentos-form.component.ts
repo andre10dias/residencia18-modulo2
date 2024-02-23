@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-atendimentos-form',
@@ -7,21 +7,17 @@ import { FormGroup } from '@angular/forms';
   styleUrl: './atendimentos-form.component.css'
 })
 export class AtendimentosFormComponent {
-  @Output() tituloForm = new EventEmitter<string>();
-  titulo: string = 'Cadastrar atendimentos';
-
   atendimentosForm: FormGroup;
 
   constructor() {
-    this.enviarTitulo();
     this.atendimentosForm = new FormGroup({
-  
+      'nomeTutor': new FormControl(null, Validators.required),
+      'nomePet': new FormControl(null, Validators.required),
+      'data': new FormControl(null, Validators.required),
+      'tipo': new FormControl(null, Validators.required),
+      'raca': new FormControl(null, Validators.required),
+      'observacao': new FormControl(null, Validators.required)
     });
-  }
-
-  enviarTitulo() {
-    console.log('form: ' + this.titulo);
-    this.tituloForm.emit(this.titulo);
   }
 
 }
