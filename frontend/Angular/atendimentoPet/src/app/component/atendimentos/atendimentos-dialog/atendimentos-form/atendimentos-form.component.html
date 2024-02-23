@@ -1,35 +1,31 @@
 <form [formGroup]="atendimentosForm">
-    <div>
-        <div>
-            <mat-label>Nome do tutor</mat-label>
+    <div class="row-1">
+        <mat-label>Nome do tutor</mat-label>
+        <div id="nome-tutor">
+            <input matInput formControlName="nomeTutor" 
+                [ngClass]="{'invalid-field': atendimentosForm.get('nomeTutor')?.invalid && atendimentosForm.get('nomeTutor')?.touched}"
+            >
             <div>
-                <input matInput formControlName="nomeTutor" 
-                    [ngClass]="{'invalid-field': atendimentosForm.get('nomeTutor')?.invalid && atendimentosForm.get('nomeTutor')?.touched}"
-                >
-                <div id="nome-tutor">
-                    <mat-error *ngIf="!atendimentosForm.get('nomeTutor')?.valid && atendimentosForm.get('nomeTutor')?.touched"
-                    >Campo obrigatório.</mat-error>
-                </div>
+                <mat-error *ngIf="!atendimentosForm.get('nomeTutor')?.valid && atendimentosForm.get('nomeTutor')?.touched"
+                >Campo obrigatório.</mat-error>
             </div>
         </div>
     </div>
 
-    <div>
-        <div>
-            <mat-label>Nome do pet</mat-label>
-            <div id="nome-pet">
-                <input matInput formControlName="nomePet" 
-                    [ngClass]="{'invalid-field': atendimentosForm.get('nomePet')?.invalid && atendimentosForm.get('nomePet')?.touched}"
-                >
-                <div>
-                    <mat-error *ngIf="!atendimentosForm.get('nomePet')?.valid && atendimentosForm.get('nomePet')?.touched"
-                    >Campo obrigatório.</mat-error>
-                </div>
+    <div class="row-2">
+        <mat-label>Nome do pet</mat-label>
+        <div id="nome-pet">
+            <input matInput formControlName="nomePet" 
+                [ngClass]="{'invalid-field': atendimentosForm.get('nomePet')?.invalid && atendimentosForm.get('nomePet')?.touched}"
+            >
+            <div>
+                <mat-error *ngIf="!atendimentosForm.get('nomePet')?.valid && atendimentosForm.get('nomePet')?.touched"
+                >Campo obrigatório.</mat-error>
             </div>
         </div>
     </div>
 
-    <div>
+    <div class="row-3">
         <div>
             <mat-label>Data</mat-label>
             <div>
@@ -46,15 +42,19 @@
         <div>
             <mat-label>Tipo</mat-label>
             <div>
-                <input matInput formControlName="tipo" 
-                    [ngClass]="{'invalid-field': atendimentosForm.get('tipo')?.invalid && atendimentosForm.get('tipo')?.touched}"
-                >
                 <div id="tipo">
-                    <mat-select formControlName="tipo" placeholder="Selecione...">
+                    <mat-select formControlName="tipo" placeholder="Selecione..."
+                        [ngClass]="{'invalid-field': atendimentosForm.get('tipo')?.invalid 
+                            && atendimentosForm.get('tipo')?.touched}"
+                    >
                         <!-- @for (tipo of tipos; track tipo) {
                             <mat-option [value]="tipo.value">{{tipo.viewValue}}</mat-option>
                         } -->
                     </mat-select>
+                    <div>
+                        <mat-error *ngIf="!atendimentosForm.get('tipo')?.valid && atendimentosForm.get('tipo')?.touched"
+                        >Campo obrigatório.</mat-error>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,27 +62,31 @@
         <div>
             <mat-label>Raça</mat-label>
             <div>
-                <input matInput formControlName="raca" 
-                    [ngClass]="{'invalid-field': atendimentosForm.get('raca')?.invalid && atendimentosForm.get('raca')?.touched}"
-                >
                 <div id="raca">
-                    <mat-select formControlName="raca" placeholder="Selecione...">
+                    <mat-select formControlName="raca" placeholder="Selecione..."
+                        [ngClass]="{'invalid-field': atendimentosForm.get('raca')?.invalid 
+                            && atendimentosForm.get('raca')?.touched}"
+                    >
                         <!-- @for (raca of racas; track raca) {
                             <mat-option [value]="raca.value">{{raca.viewValue}}</mat-option>
                         } -->
                     </mat-select>
+                    <div>
+                        <mat-error *ngIf="!atendimentosForm.get('raca')?.valid && atendimentosForm.get('raca')?.touched"
+                        >Campo obrigatório.</mat-error>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div>
+    <div class="row-4">
         <mat-label>Observação</mat-label>
-        <div>
-            <input matInput formControlName="observacao" 
+        <div id="observacao">
+            <textarea matInput formControlName="observacao" rows="5"
                 [ngClass]="{'invalid-field': atendimentosForm.get('observacao')?.invalid && atendimentosForm.get('observacao')?.touched}"
-            >
-            <div id="observacao">
+            ></textarea>
+            <div>
                 <mat-error *ngIf="!atendimentosForm.get('observacao')?.valid && atendimentosForm.get('observacao')?.touched"
                 >Campo obrigatório.</mat-error>
             </div>

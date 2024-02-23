@@ -18,6 +18,8 @@ import { Atendimento } from '../../../model/atendimento';
   styleUrl: './atendimentos-dialog.component.css'
 })
 export class AtendimentosDialogComponent {
+  titulo: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Atendimento,
@@ -25,5 +27,10 @@ export class AtendimentosDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  atribuirTitulo(titulo: string) {
+    console.log('dialog: ' + titulo);
+    this.titulo = titulo;
   }
 }

@@ -1,0 +1,12 @@
+div {
+    padding: 10px;
+    color: #ffff;
+    background-color: #3f51b5;
+    height: 150px;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: #ffff;
+}
