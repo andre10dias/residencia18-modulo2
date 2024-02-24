@@ -29,6 +29,7 @@ export class AtendimentosListComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(AtendimentosDialogComponent, {
       width: '600px',
+      disableClose: true,
       // data: {name: this.name, animal: this.animal},
     });
 
