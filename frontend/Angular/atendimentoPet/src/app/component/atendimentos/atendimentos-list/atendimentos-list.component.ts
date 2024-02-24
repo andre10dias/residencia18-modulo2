@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { Atendimento } from '../../../model/atendimento';
 import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
-import { AtendimentoDTO } from '../../../model/atendimento-dto';
+import { AtendimentoDTO } from '../../../model/atendimento.dto';
+import { BancoService } from '../../../service/banco.service';
+import { Atendimento } from '../../../model/atendimento';
+import { AtendimentoUtil } from '../../../util/atendimento.util';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -13,23 +15,16 @@ import { AtendimentoDTO } from '../../../model/atendimento-dto';
 })
 export class AtendimentosListComponent {
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca'];
+  dataSource = new MatTableDataSource<AtendimentoDTO>();
 
-  ELEMENT_DATA: AtendimentoDTO[] = [
-    {nomeTutor: 'Hydrogen', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Helium', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Lithium', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Beryllium', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Boron', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Carbon', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Nitrogen', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Oxygen', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Fluorine', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-    {nomeTutor: 'Neon', nomePet: 'Aparecida', data: '23/02/2024', raca: 'Pitbull'},
-  ];
-
-  dataSource = new MatTableDataSource<AtendimentoDTO>(this.ELEMENT_DATA);
-
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    private service: BancoService,
+    private util: AtendimentoUtil,
+    public dialog: MatDialog
+  ) {
+    this.dataSource = new MatTableDataSource<AtendimentoDTO>(this.service.atendimentos);
+    console.log(this.service.atendimentos);
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AtendimentosDialogComponent, {
@@ -38,8 +33,24 @@ export class AtendimentosListComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      console.log('result: ', result);
+      const atendimento: Atendimento = new Atendimento(
+        result.nomeTutor,
+        result.nomePet,
+        new Date(result.data),
+        result.tipo,
+        result.observacao,
+        result.raca
+      );
+
+      const atendimentoDTO: AtendimentoDTO = this.util.converterToDTO(atendimento);
+
+      this.dataSource.data.push(atendimentoDTO);
+
+      // Adiciona o novo item à fonte de dados e atualiza a fonte de dados
+      // this.dataSource.data = [...this.dataSource.data, atendimentoDTO];
+      this.dataSource._updateChangeSubscription(); // Atualizar a fonte de dados da tabela
     });
   }
+  
 }

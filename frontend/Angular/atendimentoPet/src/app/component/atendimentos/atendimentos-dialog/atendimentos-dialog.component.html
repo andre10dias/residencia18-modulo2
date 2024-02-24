@@ -8,12 +8,14 @@
 </div>
 <div class="dialog-conteiner">
     <mat-dialog-content>
-        <app-atendimentos-form></app-atendimentos-form>
+        <app-atendimentos-form
+          (emiteFormulario)="enviarFormulario($event)"
+        >
+        </app-atendimentos-form>
     </mat-dialog-content>
-    <hr>
+    <!-- <hr>
     <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cancelar</button>
-      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-      <button mat-button [mat-dialog-close]="true">Salvar</button>
-    </mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="true">Cancelar</button>
+      <button type="submit" mat-button color="primary" (click)="onSubmit($event)">Salvar</button>
+    </mat-dialog-actions> -->
 </div>

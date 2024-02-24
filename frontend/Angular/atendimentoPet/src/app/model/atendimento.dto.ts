@@ -1,6 +1,6 @@
 export interface AtendimentoDTO {
-    nomePet: string;
     nomeTutor: string;
+    nomePet: string;
     data: string;
     raca: string;
 }

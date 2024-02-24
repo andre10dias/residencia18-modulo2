@@ -1,18 +1,27 @@
 export class Atendimento {
-    private _nomePet: string;
     private _nomeTutor: string;
+    private _nomePet: string;
     private _data: Date;
     private _tipo: string;
     private _observacao: string;
     private _raca: string;
 
-    constructor() {
-        this._nomePet = '';
-        this._nomeTutor = '';
-        this._data = new Date();
-        this._tipo = '';
-        this._observacao = '';
-        this._raca = '';
+    constructor(nomeTutor: string, nomePet: string, data: Date, 
+        tipo: string, observacao: string, raca: string) {
+            
+        this._nomeTutor = nomeTutor;
+        this._nomePet = nomePet;
+        this._data = data;
+        this._tipo = tipo;
+        this._observacao = observacao;
+        this._raca = raca;
+    }
+    get nomeTutor(): string {
+        return this._nomeTutor;
+    }
+
+    set nomeTutor(value: string) {
+        this._nomeTutor = value;
     }
 
     get nomePet(): string {
@@ -23,13 +32,6 @@ export class Atendimento {
         this._nomePet = value;
     }
 
-    get nomeTutor(): string {
-        return this._nomeTutor;
-    }
-
-    set nomeTutor(value: string) {
-        this._nomeTutor = value;
-    }
 
     get data(): Date {
         return this._data;

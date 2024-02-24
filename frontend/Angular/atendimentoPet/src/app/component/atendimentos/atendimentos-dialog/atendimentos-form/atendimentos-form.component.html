@@ -1,4 +1,4 @@
-<form [formGroup]="atendimentosForm">
+<form [formGroup]="atendimentosForm" (ngSubmit)="onSubmit()">
     <div class="row-1">
         <mat-label>Nome do tutor</mat-label>
         <div id="nome-tutor">
@@ -92,5 +92,10 @@
                 >Campo obrigatório.</mat-error>
             </div>
         </div>
+    </div>
+
+    <div class="row-5">
+        <button type="submit" mat-button color="primary" [mat-dialog-close]="true">Salvar</button>
+        <button mat-button [mat-dialog-close]="true">Cancelar</button>
     </div>
 </form>

@@ -9,6 +9,9 @@ import { TipoEnum } from '../../../../enum/tipo-enum';
   styleUrl: './atendimentos-form.component.css'
 })
 export class AtendimentosFormComponent {
+  @Output() 
+  emiteFormulario: EventEmitter<string> = new EventEmitter<string>();
+
   atendimentosForm: FormGroup;
   tipos: any[] = this.service.tipo;
   racas: any[] = [];
@@ -33,6 +36,10 @@ export class AtendimentosFormComponent {
     else if (tipo == TipoEnum.CACHORRO) {
       this.racas = this.service.racaCachorro;
     }
+  }
+
+  onSubmit() {
+    this.emiteFormulario.emit(this.atendimentosForm.value);
   }
 
 }
