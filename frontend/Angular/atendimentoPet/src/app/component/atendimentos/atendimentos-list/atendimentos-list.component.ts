@@ -33,19 +33,19 @@ export class AtendimentosListComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result: ', result);
-      const atendimento: Atendimento = new Atendimento(
-        result.nomeTutor,
-        result.nomePet,
-        new Date(result.data),
-        result.tipo,
-        result.observacao,
-        result.raca
-      );
+      // console.log('result: ', result);
+      // const atendimento: Atendimento = new Atendimento(
+      //   result.nomeTutor,
+      //   result.nomePet,
+      //   new Date(result.data),
+      //   result.tipo,
+      //   result.observacao,
+      //   result.raca
+      // );
 
-      const atendimentoDTO: AtendimentoDTO = this.util.converterToDTO(atendimento);
+      // const atendimentoDTO: AtendimentoDTO = this.util.converterToDTO(atendimento);
 
-      this.dataSource.data.push(atendimentoDTO);
+      // this.dataSource.data.push(atendimentoDTO);
 
       // Adiciona o novo item à fonte de dados e atualiza a fonte de dados
       // this.dataSource.data = [...this.dataSource.data, atendimentoDTO];

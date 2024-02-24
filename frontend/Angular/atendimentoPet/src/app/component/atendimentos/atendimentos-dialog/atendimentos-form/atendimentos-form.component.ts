@@ -39,7 +39,9 @@ export class AtendimentosFormComponent {
   }
 
   onSubmit() {
-    this.emiteFormulario.emit(this.atendimentosForm.value);
+    if (this.atendimentosForm.valid) {
+      this.emiteFormulario.emit(this.atendimentosForm.value);
+    }
   }
 
 }
