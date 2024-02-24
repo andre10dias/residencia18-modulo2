@@ -61,3 +61,28 @@ input[type="date"] {
     #observacao > textarea {
     width: 100%;
 }
+
+@media (max-width: 500px) {
+    form {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 56px 56px 1fr 1fr 30px;
+        grid-gap: 10px;
+    }
+    
+    .row-3 {
+        grid-row-start: 3;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-gap: 10px;
+    }
+
+    input[type="date"] {
+        width: 100%;
+    }
+
+    textarea {
+        width: 98% !important;
+    }
+}

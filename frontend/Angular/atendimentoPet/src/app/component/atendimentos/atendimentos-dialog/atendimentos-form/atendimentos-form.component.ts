@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BancoService } from '../../../../service/banco.service';
 import { TipoEnum } from '../../../../enum/tipo-enum';
