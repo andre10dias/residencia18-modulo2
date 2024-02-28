@@ -40,14 +40,25 @@ form {
     justify-content: flex-end;
 }
 
-button[type="submit"] {
-    background-color: #3f51b5;
-    color: #ffff !important; 
-    width: 83px;   
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
 }
 
-button {
-    border: 1px solid #3f51b5;
+mat-dialog-actions > button {
+    width: 83px;
+    height: 40px;
+}
+
+button[type="submit"], .dialog-close > button {
+    background-color: #3f51b5;
+    color: #ffff !important;
+    border: none;
+}
+
+button { 
+    color: #3f51b5 !important;
+    border: 1px solid #3f51b5 !important;
     border-radius: 5px;
     margin-right: 10px;
 }
