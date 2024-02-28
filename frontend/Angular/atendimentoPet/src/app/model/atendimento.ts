@@ -1,14 +1,16 @@
 export class Atendimento {
+    private _id: number;
     private _nomeTutor: string;
     private _nomePet: string;
     private _data: Date;
-    private _tipo: string;
+    private _tipo: number;
     private _observacao: string;
     private _raca: string;
 
-    constructor(nomeTutor: string, nomePet: string, data: Date, 
-        tipo: string, observacao: string, raca: string) {
-            
+    constructor(id: number, nomeTutor: string, nomePet: string, data: Date, 
+        tipo: number, observacao: string, raca: string) {
+        
+        this._id = id;
         this._nomeTutor = nomeTutor;
         this._nomePet = nomePet;
         this._data = data;
@@ -16,6 +18,15 @@ export class Atendimento {
         this._observacao = observacao;
         this._raca = raca;
     }
+
+    get id(): number {
+        return this._id;
+    }
+
+    set id(value: number) {
+        this._id = value;
+    }
+
     get nomeTutor(): string {
         return this._nomeTutor;
     }
@@ -41,11 +52,11 @@ export class Atendimento {
         this._data = value;
     }
 
-    get tipo(): string {
+    get tipo(): number {
         return this._tipo;
     }
 
-    set tipo(value: string) {
+    set tipo(value: number) {
         this._tipo = value;
     }
 

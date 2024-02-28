@@ -10,6 +10,7 @@
     <mat-dialog-content>
         <app-atendimentos-form
           (emiteFormulario)="enviarFormulario($event)"
+          [dadosItemSelecionado]="dadosItemSelecionado"
         >
         </app-atendimentos-form>
     </mat-dialog-content>

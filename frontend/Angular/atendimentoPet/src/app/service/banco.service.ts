@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TipoEnum } from '../enum/tipo-enum';
-import { AtendimentoDTO } from '../model/atendimento.dto';
+import { AtendimentoListDTO } from '../model/atendimento-list.dto';
 import { Atendimento } from '../model/atendimento';
 import { AtendimentoUtil } from '../util/atendimento.util';
 
@@ -36,28 +36,27 @@ export class BancoService {
     {value: 'rottweiler', viewValue: 'Rottweiler'}
   ];
 
-  atendimentos: any[] = [
-    {nomeTutor: 'Maria', nomePet: 'Paçoca', data: '23/02/2024', raca: 'Exotico'},
-    {nomeTutor: 'José', nomePet: 'Bolacha', data: '20/02/2024', raca: 'Bengal'},
-    {nomeTutor: 'Ana', nomePet: 'Pipoca', data: '18/02/2024', raca: 'Buldogue'},
-    {nomeTutor: 'João', nomePet: 'Bisteca', data: '10/02/2024', raca: 'Sianês'},
-    {nomeTutor: 'Antônio', nomePet: 'Bisteca', data: '05/02/2024', raca: 'Labrador'},
-    {nomeTutor: 'Francisco', nomePet: 'Mel', data: '23/01/2024', raca: 'Poodle'},
-    {nomeTutor: 'Juliana', nomePet: 'Cacau', data: '20/12/2023', raca: 'Poodle'},
-  ];
-
   listaAtendimentos: Atendimento[] = [];
+  atendimentos: AtendimentoListDTO[] = [];
 
-  constructor(private util: AtendimentoUtil) { }
+  constructor(private util: AtendimentoUtil) {
+    this.listaAtendimentos = this.gerarListaAtendimentos();
 
-  setDadosFormulario(form: any) {
+    this.listaAtendimentos.forEach((atendimento: Atendimento) => {
+      this.atendimentos.push(this.util.converterToListDTO(atendimento))
+    })
+  }
+
+  getDadosFormulario(form: any) {
     const [ano, mes, dia] = form.data.split('-');
     console.log('dados recebidos no service: ', form);
 
     // Meses são 0-based, então subtraímos 1
     const data = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
+    const id = this.gerarIdAtendimento();
 
     let atendimento: Atendimento = new Atendimento(
+      id,
       form.nomeTutor,
       form.nomePet,
       data,
@@ -68,7 +67,95 @@ export class BancoService {
 
     this.listaAtendimentos.push(atendimento);
 
-    let formDTO: AtendimentoDTO = this.util.converterToDTO(atendimento);
+    let formDTO: AtendimentoListDTO = this.util.converterToListDTO(atendimento);
     this.atendimentos.push(formDTO);
+  }
+
+  getAtendimentoById(id: number): Atendimento | undefined {
+    console.log('getAtendimentoById: ', id);
+    console.log('listaAtendimentos: ', this.listaAtendimentos);
+    let atendimento: Atendimento | undefined = this.listaAtendimentos
+      .find((atendimento: Atendimento) => atendimento.id === id
+    );
+
+    console.log('atendimento: ', atendimento);
+    return atendimento;
+  }
+
+  gerarIdAtendimento(): number {
+    let id: number = 1;
+
+    if (this.listaAtendimentos.length == 0) {
+      return id;
+    }
+
+    this.listaAtendimentos.forEach((atendimento: Atendimento) => {
+      if (atendimento.id > id) {
+        id = atendimento.id;
+      }
+    })
+
+    return id + 1;
+  }
+
+  gerarListaAtendimentos(): Atendimento[] {
+    let atendimentos: Atendimento[] = [];
+    let atendimento: Atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'Maria', 
+      'Paçoca', new Date(2024, 2, 23), 1, 
+      'Vacinado, castrado', 'exotico'
+    );
+
+    atendimentos.push(atendimento);
+
+    atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'José', 
+      'Bolacha', new Date(2024, 2, 20), 1, 
+      'Vacinado', 'bengal'
+    );
+
+    atendimentos.push(atendimento);
+
+    atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'Ana', 
+      'Pipoca', new Date(2024, 2, 18), 2, 
+      'Não Vacinado', 'buldogue'
+    );
+
+    atendimentos.push(atendimento);
+
+    atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'João', 
+      'Bisteca', new Date(2024, 2, 10), 1, 
+      'Vacinado, castrado', 'sianês'
+    );
+
+    atendimentos.push(atendimento);
+
+    atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'Antônio', 
+      'Bisteca', new Date(2024, 2, 5), 2, 
+      'Vacinado', 'labrador'
+    );
+
+    atendimentos.push(atendimento);
+
+    atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'Juliana', 
+      'Cacau', new Date(2024, 1, 23), 2, 
+      'Vacinado, castrado', 'poodle'
+    );
+
+    atendimentos.push(atendimento);
+
+    atendimento = new Atendimento(
+      this.gerarIdAtendimento(), 'Juliana', 
+      'Cacau', new Date(2023, 12, 20), 2, 
+      'Vacinado', 'poodle'
+    );
+
+    atendimentos.push(atendimento);
+
+    return atendimentos;
   }
 }

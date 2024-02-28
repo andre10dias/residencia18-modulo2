@@ -1,4 +1,4 @@
 export enum TipoEnum {
-    GATO = 'gato',
-    CACHORRO = 'cachorro',
+    GATO = 1,
+    CACHORRO = 2,
 }

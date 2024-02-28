@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BancoService } from '../../../../service/banco.service';
+import { AtendimentoUtil } from '../../../../util/atendimento.util';
 import { TipoEnum } from '../../../../enum/tipo-enum';
 
 @Component({
@@ -8,13 +9,14 @@ import { TipoEnum } from '../../../../enum/tipo-enum';
   templateUrl: './atendimentos-form.component.html',
   styleUrl: './atendimentos-form.component.css'
 })
-export class AtendimentosFormComponent {
-  @Output() 
-  emiteFormulario: EventEmitter<string> = new EventEmitter<string>();
+export class AtendimentosFormComponent implements OnInit {
+  @Output() emiteFormulario: EventEmitter<string> = new EventEmitter<string>();
+  @Input() dadosItemSelecionado: any;
 
   atendimentosForm: FormGroup;
   tipos: any[] = this.service.tipo;
   racas: any[] = [];
+  btnText: string = 'Salvar';
 
   constructor(private service: BancoService) {
     this.atendimentosForm = new FormGroup({
@@ -27,7 +29,23 @@ export class AtendimentosFormComponent {
     });
   }
 
-  changeTipo(tipo: string) {
+  ngOnInit(): void {
+    console.log('[atendimentos-form] dadosItemSelecionado: ', this.dadosItemSelecionado);
+    if (this.dadosItemSelecionado) {
+      this.atendimentosForm.patchValue({
+        'nomeTutor': this.dadosItemSelecionado.nomeTutor,
+        'nomePet': this.dadosItemSelecionado.nomePet,
+        'data': this.dadosItemSelecionado.data,
+        'tipo': this.dadosItemSelecionado.tipo,
+        'raca': this.dadosItemSelecionado.raca,
+        'observacao': this.dadosItemSelecionado.observacao
+      });
+      this.changeTipo(this.dadosItemSelecionado.tipo);
+      this.btnText = 'Editar';
+    }
+  }
+
+  changeTipo(tipo: number) {
     this.racas = [];
 
     if (tipo == TipoEnum.GATO) {
@@ -40,6 +58,7 @@ export class AtendimentosFormComponent {
 
   onSubmit() {
     if (this.atendimentosForm.valid) {
+      console.log('[atendimentos-form] this.atendimentosForm.value: ', this.atendimentosForm.value);
       this.emiteFormulario.emit(this.atendimentosForm.value);
     }
   }

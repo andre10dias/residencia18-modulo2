@@ -3,10 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
-import { AtendimentoDTO } from '../../../model/atendimento.dto';
+import { AtendimentoListDTO } from '../../../model/atendimento-list.dto';
 import { BancoService } from '../../../service/banco.service';
-import { Atendimento } from '../../../model/atendimento';
 import { AtendimentoUtil } from '../../../util/atendimento.util';
+import { Atendimento } from '../../../model/atendimento';
+import { AtendimentoEditDTO } from '../../../model/atendimento-edit.dto.';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -14,23 +15,23 @@ import { AtendimentoUtil } from '../../../util/atendimento.util';
   styleUrl: './atendimentos-list.component.css'
 })
 export class AtendimentosListComponent {
-  displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca'];
-  dataSource = new MatTableDataSource<AtendimentoDTO>();
+  displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];
+  dataSource = new MatTableDataSource<AtendimentoListDTO>();
 
   constructor(
     private service: BancoService,
     private util: AtendimentoUtil,
     public dialog: MatDialog
   ) {
-    this.dataSource = new MatTableDataSource<AtendimentoDTO>(this.service.atendimentos);
+    this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.service.atendimentos);
     console.log(this.service.atendimentos);
   }
 
-  openDialog(): void {
+  openDialog(element?: AtendimentoEditDTO): void {
     const dialogRef = this.dialog.open(AtendimentosDialogComponent, {
       width: '600px',
       disableClose: true,
-      // data: {name: this.name, animal: this.animal},
+      data: element
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -53,5 +54,24 @@ export class AtendimentosListComponent {
       this.dataSource._updateChangeSubscription(); // Atualizar a fonte de dados da tabela
     });
   }
+
+  editItem(id: number): void {
+    let atendimento: Atendimento | undefined = this.service.getAtendimentoById(id);
+
+    if (atendimento) {
+      let atendimentoEditDTO: AtendimentoEditDTO = this.util.converterToEditDTO(atendimento);
+      console.log('[atendimentos-list] editItem: ', atendimentoEditDTO);
+      this.openDialog(atendimentoEditDTO);
+    }
+  }
+
+  removeItem(id: number): void {
+    const index = this.dataSource.data.findIndex(item => item.id === id);
+    if (index !== -1) {
+      this.dataSource.data.splice(index, 1);
+      this.dataSource._updateChangeSubscription();
+    }
+  }
+  
   
 }

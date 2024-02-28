@@ -11,12 +11,19 @@ import { BancoService } from '../../../service/banco.service';
 })
 export class AtendimentosDialogComponent {
   titulo: string = 'Cadastrar atendimentos';
+  dadosItemSelecionado: any;
 
   constructor(
     private service: BancoService,
     public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Atendimento,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    console.log('[atendimentos-dialog.component] data: ', data);
+    if (data) {
+      this.titulo = 'Editar atendimentos';
+      this.dadosItemSelecionado = data;
+    }
+  }
 
   // onNoClick(): void {
   //   console.log('[atendimentos-dialog.component] onNoClick()');
@@ -24,7 +31,7 @@ export class AtendimentosDialogComponent {
   // }
 
   enviarFormulario(formulario: any) {
-    this.service.setDadosFormulario(formulario);
+    this.service.getDadosFormulario(formulario);
     // Fechar o diálogo após salvar e envia os dados 
     // do formulário para a lista de atendimentos
     // this.dialogRef.close(formulario); 
