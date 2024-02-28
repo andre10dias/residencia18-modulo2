@@ -14,12 +14,15 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserForm {
+public class AtualizarUserForm {
 	private String nome;
 	private String email;
-	private String senha;
 	
-	public Usuario toUsuario() {
-		return new Usuario(null, nome, email, senha);
+	public Usuario atualizar(Long id, UsuarioRepository repository) {
+		Usuario usuario = repository.getReferenceById(id);
+		usuario.setNome(this.nome);
+		usuario.setEmail(this.email);
+		
+		return usuario;
 	}
 }

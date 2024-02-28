@@ -1,8 +1,6 @@
 package com.aeroporto.aeroporto.controller.dto;
 
-package com.aeroporto.aeroporto.controller.dto;
-
-import com.modeloAeronave.aeroporto.controler.dto;
+import com.aeroporto.aeroporto.model.ModeloAeronave;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
