@@ -8,6 +8,7 @@ import { BancoService } from '../../../service/banco.service';
 import { AtendimentoUtil } from '../../../util/atendimento.util';
 import { Atendimento } from '../../../model/atendimento';
 import { AtendimentoEditDTO } from '../../../model/atendimento-edit.dto.';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -17,6 +18,10 @@ import { AtendimentoEditDTO } from '../../../model/atendimento-edit.dto.';
 export class AtendimentosListComponent {
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];
   dataSource = new MatTableDataSource<AtendimentoListDTO>();
+
+  removeTitle: string = 'Excluir atendimento';
+  removeTemplate: string = '<div>Tem certeza que deseja remover?</div>';
+
 
   constructor(
     private service: BancoService,
@@ -71,6 +76,25 @@ export class AtendimentosListComponent {
       this.dataSource.data.splice(index, 1);
       this.dataSource._updateChangeSubscription();
     }
+  }
+
+  openConfirmDialog(
+    element?: any, 
+    template: string = this.removeTemplate, 
+    title: string = this.removeTitle
+  ): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '600px',
+      disableClose: true,
+      data: {title, template, element}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.removeItem(element);
+        this.dataSource._updateChangeSubscription();
+      }
+    });
   }
   
   

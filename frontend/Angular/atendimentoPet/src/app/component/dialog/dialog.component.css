@@ -24,7 +24,20 @@
     padding: 10px;
 }
 
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
 button {
     background-color: #3f51b5;
-    color: #ffff !important;  
+    color: #ffff !important;   
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+mat-dialog-actions > button {
+    width: 83px;
+    height: 40px;
 }
