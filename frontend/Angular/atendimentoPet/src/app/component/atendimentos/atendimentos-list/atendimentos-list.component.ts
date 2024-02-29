@@ -48,7 +48,9 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     let label = document.querySelector('#mat-paginator-page-size-label-0') as HTMLElement;
-    label!.innerHTML = 'Itens por página:';
+    if (label) {
+      label.innerHTML = 'Itens por página:';
+    }
   }
 
   openDialog(element?: AtendimentoEditDTO): void {
