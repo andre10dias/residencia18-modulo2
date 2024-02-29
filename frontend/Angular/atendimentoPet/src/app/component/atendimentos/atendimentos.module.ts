@@ -25,6 +25,7 @@ import { AtendimentosComponent } from './atendimentos.component';
 import { AtendimentosListComponent } from './atendimentos-list/atendimentos-list.component';
 import { AtendimentosFormComponent } from './atendimentos-dialog/atendimentos-form/atendimentos-form.component';
 import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-
   imports: [
     CommonModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,

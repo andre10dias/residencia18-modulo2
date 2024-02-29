@@ -22,7 +22,7 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   screenWidth: number = window.innerWidth;
-
+  
   listaAtendimentos: AtendimentoListDTO[] = [];
   
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];

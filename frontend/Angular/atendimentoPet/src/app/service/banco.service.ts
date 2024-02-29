@@ -3,11 +3,15 @@ import { TipoEnum } from '../enum/tipo-enum';
 import { AtendimentoListDTO } from '../model/atendimento-list.dto';
 import { Atendimento } from '../model/atendimento';
 import { AtendimentoUtil } from '../util/atendimento.util';
+import { HttpClient } from '@angular/common/http';
+import { AtendimentoCreateDTO } from '../model/atendimento-create.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BancoService {
+  baseUrl = 'https://atendimento-pet-default-rtdb.firebaseio.com';
+
   tipo: any[] = [
     {value: '', viewValue: 'Selecione...'},
     {value: TipoEnum.GATO, viewValue: 'Gato'},
@@ -39,7 +43,10 @@ export class BancoService {
   listaAtendimentos: Atendimento[] = [];
   atendimentos: AtendimentoListDTO[] = [];
 
-  constructor(private util: AtendimentoUtil) {
+  constructor(
+    private http: HttpClient,
+    private util: AtendimentoUtil
+  ) {
     this.listaAtendimentos = this.gerarListaAtendimentos();
 
     this.listaAtendimentos.forEach((atendimento: Atendimento) => {
@@ -47,28 +54,37 @@ export class BancoService {
     })
   }
 
-  getDadosFormulario(form: any) {
+  receberDadosFormulario(form: any) {
     const [ano, mes, dia] = form.data.split('-');
     // console.log('dados recebidos no service: ', form);
 
     // Meses são 0-based, então subtraímos 1
     const data = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
-    const id = this.gerarIdAtendimento();
+    // const id = this.gerarIdAtendimento();
 
-    let atendimento: Atendimento = new Atendimento(
-      id,
-      form.nomeTutor,
-      form.nomePet,
-      data,
-      form.tipo,
-      form.observacao,
-      form.raca
-    );
+    let atendimentoCreate: AtendimentoCreateDTO = {
+      nomeTutor: form.nomeTutor,
+      nomePet: form.nomePet,
+      dataAtendimento: data,
+      tipo: form.tipo,
+      observacao: form.observacao,
+      raca: form.raca
+    }
 
-    this.listaAtendimentos.push(atendimento);
+    console.log('atendimentoCreate: ', atendimentoCreate);
 
-    let formDTO: AtendimentoListDTO = this.util.converterToListDTO(atendimento);
-    this.atendimentos.push(formDTO);
+    this.http.post(`${this.baseUrl}/atendimento.json`, atendimentoCreate).subscribe(
+      (data) => {
+        console.log(data);
+      }
+    )
+
+    
+
+    // this.listaAtendimentos.push(atendimento);
+
+    // let formDTO: AtendimentoListDTO = this.util.converterToListDTO(atendimento);
+    // this.atendimentos.push(formDTO);
   }
 
   getAtendimentoById(id: number): Atendimento | undefined {

@@ -31,7 +31,7 @@ export class AtendimentosDialogComponent {
   // }
 
   enviarFormulario(formulario: any) {
-    this.service.getDadosFormulario(formulario);
+    this.service.receberDadosFormulario(formulario);
     // Fechar o diálogo após salvar e envia os dados 
     // do formulário para a lista de atendimentos
     // this.dialogRef.close(formulario); 
