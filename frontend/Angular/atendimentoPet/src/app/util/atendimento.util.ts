@@ -39,6 +39,10 @@ export class AtendimentoUtil {
         return null;
     }
 
+    compare(a: number | string, b: number | string, isAsc: boolean) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+
     converterToListDTO(atendimento: Atendimento) {
         const atendimentoListDto: AtendimentoListDTO = {
             id: atendimento.id,

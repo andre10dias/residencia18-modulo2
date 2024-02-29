@@ -11,6 +11,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 import {
   MatDialogTitle,
   MatDialogContent,
@@ -49,7 +50,8 @@ import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-
     MatMenuModule,
     MatDividerModule,
     MatListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [
     AtendimentosComponent
