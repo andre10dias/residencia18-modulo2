@@ -49,7 +49,7 @@ export class BancoService {
 
   getDadosFormulario(form: any) {
     const [ano, mes, dia] = form.data.split('-');
-    console.log('dados recebidos no service: ', form);
+    // console.log('dados recebidos no service: ', form);
 
     // Meses são 0-based, então subtraímos 1
     const data = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
@@ -72,13 +72,11 @@ export class BancoService {
   }
 
   getAtendimentoById(id: number): Atendimento | undefined {
-    console.log('getAtendimentoById: ', id);
-    console.log('listaAtendimentos: ', this.listaAtendimentos);
     let atendimento: Atendimento | undefined = this.listaAtendimentos
       .find((atendimento: Atendimento) => atendimento.id === id
     );
 
-    console.log('atendimento: ', atendimento);
+    // console.log('atendimento: ', atendimento);
     return atendimento;
   }
 

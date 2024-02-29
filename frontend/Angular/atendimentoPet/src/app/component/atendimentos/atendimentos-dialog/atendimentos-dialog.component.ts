@@ -18,7 +18,7 @@ export class AtendimentosDialogComponent {
     public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    console.log('[atendimentos-dialog.component] data: ', data);
+    // console.log('[atendimentos-dialog.component] data: ', data);
     if (data) {
       this.titulo = 'Editar atendimentos';
       this.dadosItemSelecionado = data;

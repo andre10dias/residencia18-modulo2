@@ -58,7 +58,7 @@ export class AtendimentosFormComponent implements OnInit {
 
   onSubmit() {
     if (this.atendimentosForm.valid) {
-      console.log('[atendimentos-form] this.atendimentosForm.value: ', this.atendimentosForm.value);
+      // console.log('[atendimentos-form] this.atendimentosForm.value: ', this.atendimentosForm.value);
       this.emiteFormulario.emit(this.atendimentosForm.value);
     }
   }

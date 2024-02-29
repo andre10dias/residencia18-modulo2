@@ -86,7 +86,7 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
 
     if (atendimento) {
       let atendimentoEditDTO: AtendimentoEditDTO = this.util.converterToEditDTO(atendimento);
-      console.log('[atendimentos-list] editItem: ', atendimentoEditDTO);
+      // console.log('[atendimentos-list] editItem: ', atendimentoEditDTO);
       this.openDialog(atendimentoEditDTO);
     }
   }
