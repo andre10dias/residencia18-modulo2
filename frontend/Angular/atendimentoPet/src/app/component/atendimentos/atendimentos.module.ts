@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {
   MatDialogTitle,
   MatDialogContent,
@@ -47,7 +48,8 @@ import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatPaginatorModule
   ],
   exports: [
     AtendimentosComponent

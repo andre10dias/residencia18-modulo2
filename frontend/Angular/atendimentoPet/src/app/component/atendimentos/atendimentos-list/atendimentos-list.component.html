@@ -1,7 +1,7 @@
 <div class="btn-cadastrar">
     <button mat-button color="primary" (click)="openDialog()">Cadastrar atendimento</button>
 </div>
-<div>
+<div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <!-- Name Column -->
         <ng-container matColumnDef="tutor">
@@ -16,7 +16,7 @@
         </ng-container>
       
         <!-- data Column -->
-        <ng-container matColumnDef="data">
+        <ng-container matColumnDef="data" *ngIf="!isScreenSmall()">
           <th mat-header-cell *matHeaderCellDef> Data </th>
           <td mat-cell *matCellDef="let element"> {{element.data}} </td>
         </ng-container>
@@ -49,5 +49,10 @@
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Selecione periódicamente a página de elementos.">
+    </mat-paginator>
 </div>

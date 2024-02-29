@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
 import { AtendimentoListDTO } from '../../../model/atendimento-list.dto';
@@ -15,7 +16,10 @@ import { DialogComponent } from '../../dialog/dialog.component';
   templateUrl: './atendimentos-list.component.html',
   styleUrl: './atendimentos-list.component.css'
 })
-export class AtendimentosListComponent {
+export class AtendimentosListComponent implements AfterViewInit, OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  screenWidth: number = window.innerWidth;
+
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];
   dataSource = new MatTableDataSource<AtendimentoListDTO>();
 
@@ -29,7 +33,22 @@ export class AtendimentosListComponent {
     public dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.service.atendimentos);
-    console.log(this.service.atendimentos);
+  }
+
+  ngOnInit(): void {
+    window.onresize = () => {
+      this.screenWidth = window.innerWidth;
+    };
+
+    if (this.isScreenSmall()) {
+      this.displayedColumns = ['tutor', 'pet', 'raca', 'action'];
+    }
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    let label = document.querySelector('#mat-paginator-page-size-label-0') as HTMLElement;
+    label!.innerHTML = 'Itens por página:';
   }
 
   openDialog(element?: AtendimentoEditDTO): void {
@@ -96,6 +115,9 @@ export class AtendimentosListComponent {
       }
     });
   }
-  
+
+  isScreenSmall(): boolean {
+    return this.screenWidth <= 500;
+  }
   
 }

@@ -30,7 +30,7 @@ export class AtendimentosFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('[atendimentos-form] dadosItemSelecionado: ', this.dadosItemSelecionado);
+    // console.log('[atendimentos-form] dadosItemSelecionado: ', this.dadosItemSelecionado);
     if (this.dadosItemSelecionado) {
       this.atendimentosForm.patchValue({
         'nomeTutor': this.dadosItemSelecionado.nomeTutor,

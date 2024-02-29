@@ -45,7 +45,7 @@ mat-dialog-actions {
     justify-content: flex-end;
 }
 
-mat-dialog-actions > button {
+.row-5 > button {
     width: 83px;
     height: 40px;
 }
