@@ -28,7 +28,7 @@ export class AtendimentoConverter {
         let atendimento: AtendimentoListDTO;
         
         listaAtendimentos.forEach(data => {
-            console.log('[AtendimentoConverter] toListAtendimentoListDTOs: ', data);
+            // console.log('[AtendimentoConverter] toListAtendimentoListDTOs: ', data);
             atendimento = {
                 id: data.id,
                 nomeTutor: data.nomeTutor,

@@ -5,13 +5,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 
-import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
-import { AtendimentoListDTO } from '../../../model/atendimento/atendimento-list.dto';
 import { AtendimentoService } from '../../../service/atendimento.service';
 import { AtendimentoUtil } from '../../../util/atendimento.util';
+import { AtendimentoConverter } from '../../../converter/atendimento.converter';
+
+import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
+import { AtendimentoListDTO } from '../../../model/atendimento/atendimento-list.dto';
 import { AtendimentoEditDTO } from '../../../model/atendimento/atendimento-edit.dto.';
 import { DialogComponent } from '../../dialog/dialog.component';
-import { AtendimentoConverter } from '../../../converter/atendimento.converter';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -26,7 +27,6 @@ export class AtendimentosListComponent implements OnInit {
   dadosCarregados: boolean = false;
   screenWidth: number = window.innerWidth;
   
-  
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];
   dataSource = new MatTableDataSource<AtendimentoListDTO>();
   sortedData: AtendimentoListDTO[] = [];
@@ -40,16 +40,17 @@ export class AtendimentosListComponent implements OnInit {
     private util: AtendimentoUtil,
     public dialog: MatDialog
   ) {
-    // this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(this.service.getAllAtendimentos());
-    console.log('[atendimentos-list] this.listaAtendimentos: ', this.listaAtendimentos);
-    // this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
-    // if (this.listaAtendimentos) {
-    //   this.sortedData = this.listaAtendimentos.slice() as AtendimentoListDTO[];
-    // }
+    this.carregarAtendimentos();
   }
 
   ngOnInit(): void {
-    this.getListaAtendimentos();
+    this.service.novoAtendimentoObservable.subscribe({
+      next: (atendimento: AtendimentoListDTO) => {
+        // console.log('[atendimentos-list] novoAtendimentoObservable: ', atendimento);
+        this.dataSource.data.push(atendimento);
+        this.dataSource._updateChangeSubscription();
+      }
+    });
 
     window.onresize = () => {
       this.screenWidth = window.innerWidth;
@@ -60,10 +61,11 @@ export class AtendimentosListComponent implements OnInit {
     }
   }
 
-  getListaAtendimentos(): void {
+  carregarAtendimentos(): void {
     this.service.getAllAtendimentos().subscribe({
       next: atendimentos => {
         this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
+        console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
         this.dadosCarregados = true;
         this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
         this.sortedData = this.listaAtendimentos.slice();
