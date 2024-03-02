@@ -7,11 +7,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {
   MatDialogTitle,
   MatDialogContent,
@@ -49,11 +51,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogClose,
     MatTableModule,
     MatIconModule,
+    MatCardModule,
     MatMenuModule,
     MatDividerModule,
     MatListModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     AtendimentosComponent

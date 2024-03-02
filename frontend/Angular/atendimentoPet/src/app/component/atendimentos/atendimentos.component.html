@@ -1,7 +1,12 @@
-<div id="list-content">
-    <div class="btn-cadastrar">
+<mat-card id="card-list">
+    <mat-card-header>
+      <h2>Lista de Atendimentos</h2>
+      <div class="button-container">
         <button mat-button color="primary" (click)="openDialog()">Cadastrar atendimento</button>
-    </div>
-
-    <app-atendimentos-list></app-atendimentos-list>
-</div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+        <app-atendimentos-list></app-atendimentos-list>
+    </mat-card-content>
+</mat-card>
+  

@@ -1,48 +1,56 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 
 import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
-import { AtendimentoListDTO } from '../../../model/atendimento-list.dto';
-import { BancoService } from '../../../service/banco.service';
+import { AtendimentoListDTO } from '../../../model/atendimento/atendimento-list.dto';
+import { AtendimentoService } from '../../../service/atendimento.service';
 import { AtendimentoUtil } from '../../../util/atendimento.util';
-import { Atendimento } from '../../../model/atendimento';
-import { AtendimentoEditDTO } from '../../../model/atendimento-edit.dto.';
+import { AtendimentoEditDTO } from '../../../model/atendimento/atendimento-edit.dto.';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { AtendimentoConverter } from '../../../converter/atendimento.converter';
 
 @Component({
   selector: 'app-atendimentos-list',
   templateUrl: './atendimentos-list.component.html',
   styleUrl: './atendimentos-list.component.css'
 })
-export class AtendimentosListComponent implements AfterViewInit, OnInit {
+export class AtendimentosListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-  screenWidth: number = window.innerWidth;
   
   listaAtendimentos: AtendimentoListDTO[] = [];
+  dadosCarregados: boolean = false;
+  screenWidth: number = window.innerWidth;
+  
   
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];
   dataSource = new MatTableDataSource<AtendimentoListDTO>();
-  sortedData: AtendimentoListDTO[];
+  sortedData: AtendimentoListDTO[] = [];
 
   removeTitle: string = 'Excluir atendimento';
   removeTemplate: string = '<div>Tem certeza que deseja remover?</div>';
 
   constructor(
-    private service: BancoService,
+    private service: AtendimentoService,
+    private converter: AtendimentoConverter,
     private util: AtendimentoUtil,
     public dialog: MatDialog
   ) {
-    this.listaAtendimentos = this.service.atendimentos;
-    this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
-    this.sortedData = this.listaAtendimentos.slice();
+    // this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(this.service.getAllAtendimentos());
+    console.log('[atendimentos-list] this.listaAtendimentos: ', this.listaAtendimentos);
+    // this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
+    // if (this.listaAtendimentos) {
+    //   this.sortedData = this.listaAtendimentos.slice() as AtendimentoListDTO[];
+    // }
   }
 
   ngOnInit(): void {
+    this.getListaAtendimentos();
+
     window.onresize = () => {
       this.screenWidth = window.innerWidth;
     };
@@ -52,13 +60,29 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    let label = document.querySelector('#mat-paginator-page-size-label-0') as HTMLElement;
-    if (label) {
-      label.innerHTML = 'Itens por página:';
-    }
+  getListaAtendimentos(): void {
+    this.service.getAllAtendimentos().subscribe({
+      next: atendimentos => {
+        this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
+        this.dadosCarregados = true;
+        this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
+        this.sortedData = this.listaAtendimentos.slice();
+
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          let label = document.querySelector('#mat-paginator-page-size-label-0') as HTMLElement;
+          // let label2 = document.querySelector('.mat-mdc-paginator-range-label') as HTMLElement;
+          
+          if (label) {
+            label.innerHTML = 'Itens por página:';
+          }
+        }, 200);
+      },
+      error: error => {
+        console.error('Erro ao carregar atendimentos:', error);
+      }
+    });
   }
 
   openDialog(element?: AtendimentoEditDTO): void {
@@ -74,17 +98,17 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
     });
   }
 
-  editItem(id: number): void {
-    let atendimento: Atendimento | undefined = this.service.getAtendimentoById(id);
-
-    if (atendimento) {
-      let atendimentoEditDTO: AtendimentoEditDTO = this.util.converterToEditDTO(atendimento);
-      // console.log('[atendimentos-list] editItem: ', atendimentoEditDTO);
-      this.openDialog(atendimentoEditDTO);
-    }
+  editItem(id: string): void {
+    // this.service.getAtendimentoById(id).subscribe(atendimento => {
+    //     if (atendimento) {
+    //         let atendimentoEditDTO: AtendimentoEditDTO = this.converter.toAtendimentoEditDTO(atendimento);
+    //         // console.log('[atendimentos-list] editItem: ', atendimentoEditDTO);
+    //         this.openDialog(atendimentoEditDTO);
+    //     }
+    // });
   }
 
-  removeItem(id: number): void {
+  removeItem(id: string): void {
     const index = this.dataSource.data.findIndex(item => item.id === id);
     if (index !== -1) {
       this.dataSource.data.splice(index, 1);
@@ -114,7 +138,6 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
   sortData(sort: Sort) {
     // const data = this.listaAtendimentos.slice();
     const data = this.dataSource.data.slice();
-    console.log('data: ', data);
 
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
@@ -128,12 +151,12 @@ export class AtendimentosListComponent implements AfterViewInit, OnInit {
           return this.util.compare(a.nomeTutor, b.nomeTutor, isAsc);
         case 'pet':
           return this.util.compare(a.nomePet, b.nomePet, isAsc);
-        case 'data':
-          return this.util.compare(a.data, b.data, isAsc);
+        case 'dataAtendimento':
+          return this.util.compareDates(a.dataAtendimento, b.dataAtendimento, isAsc);
         case 'raca':
           return this.util.compare(a.raca, b.raca, isAsc);
         default:
-          return 0;
+          return this.util.compare(a.dataAtendimento, b.dataAtendimento, isAsc);
       }
     });
   }

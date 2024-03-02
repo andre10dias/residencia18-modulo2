@@ -1,7 +1,7 @@
 export interface AtendimentoListDTO {
-    id: number;
+    id: string;
     nomeTutor: string;
     nomePet: string;
-    data: string;
+    dataAtendimento: string;
     raca: string;
 }

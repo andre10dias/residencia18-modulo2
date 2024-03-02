@@ -1,29 +1,33 @@
 export class Atendimento {
-    private _id: number;
+    private _id: string;
     private _nomeTutor: string;
     private _nomePet: string;
-    private _data: Date;
+    private _dataAtendimento: Date;
     private _tipo: number;
     private _observacao: string;
     private _raca: string;
+    private _createAt: Date;
+    private _updateAt: Date | null;
 
-    constructor(id: number, nomeTutor: string, nomePet: string, data: Date, 
-        tipo: number, observacao: string, raca: string) {
+    constructor(id: string, nomeTutor: string, nomePet: string, dataAtendimento: Date, 
+        tipo: number, observacao: string, raca: string, createAt: Date, updateAt: Date | null) {
         
         this._id = id;
         this._nomeTutor = nomeTutor;
         this._nomePet = nomePet;
-        this._data = data;
+        this._dataAtendimento = dataAtendimento;
         this._tipo = tipo;
         this._observacao = observacao;
         this._raca = raca;
+        this._createAt = createAt;
+        this._updateAt = updateAt;
     }
 
-    get id(): number {
+    get id(): string {
         return this._id;
     }
 
-    set id(value: number) {
+    set id(value: string) {
         this._id = value;
     }
 
@@ -43,13 +47,12 @@ export class Atendimento {
         this._nomePet = value;
     }
 
-
-    get data(): Date {
-        return this._data;
+    get dataAtendimento(): Date {
+        return this._dataAtendimento;
     }
 
-    set data(value: Date) {
-        this._data = value;
+    set dataAtendimento(value: Date) {
+        this._dataAtendimento = value;
     }
 
     get tipo(): number {
@@ -75,4 +78,21 @@ export class Atendimento {
     set raca(value: string) {
         this._raca = value;
     }
+
+    get createAt(): Date {
+        return this._createAt;
+    }
+
+    set createAt(value: Date) {
+        this._createAt = value;
+    }
+
+    get updateAt(): Date | null {
+        return this._updateAt;
+    }
+
+    set updateAt(value: Date | null) {
+        this._updateAt = value;
+    }
+
 }

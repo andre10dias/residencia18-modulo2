@@ -1,8 +1,8 @@
 export interface AtendimentoEditDTO {
-    id: number;
+    id: string;
     nomeTutor: string;
     nomePet: string;
-    data: string;
+    dataAtendimento: string;
     tipo: number;
     observacao: string;
     raca: string;

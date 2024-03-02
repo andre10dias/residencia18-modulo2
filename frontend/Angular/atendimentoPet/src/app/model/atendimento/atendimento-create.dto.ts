@@ -5,4 +5,6 @@ export interface AtendimentoCreateDTO {
     tipo: number
     observacao: string
     raca: string
+    createAt: Date
+    updateAt: Date | null
 }

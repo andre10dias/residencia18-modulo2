@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Atendimento } from '../../../model/atendimento';
-import { BancoService } from '../../../service/banco.service';
+import { Atendimento } from '../../../model/atendimento/atendimento';
+import { AtendimentoService } from '../../../service/atendimento.service';
 
 @Component({
   selector: 'app-atendimentos-dialog',
@@ -14,7 +14,7 @@ export class AtendimentosDialogComponent {
   dadosItemSelecionado: any;
 
   constructor(
-    private service: BancoService,
+    private service: AtendimentoService,
     public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {

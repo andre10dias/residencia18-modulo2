@@ -58,9 +58,6 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "open": true
-          },
           "configurations": {
             "production": {
               "browserTarget": "1_flightTicket:build:production"
@@ -97,8 +94,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }

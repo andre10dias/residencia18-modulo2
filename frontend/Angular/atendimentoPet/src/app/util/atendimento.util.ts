@@ -1,14 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Atendimento } from "../model/atendimento";
-import { AtendimentoListDTO } from "../model/atendimento-list.dto";
-import { AtendimentoEditDTO } from "../model/atendimento-edit.dto.";
+import { Atendimento } from "../model/atendimento/atendimento";
+import { AtendimentoListDTO } from "../model/atendimento/atendimento-list.dto";
+import { AtendimentoEditDTO } from "../model/atendimento/atendimento-edit.dto.";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AtendimentoUtil {
 
-    formatarData(data: Date, formato: string = 'yyyy-MM-dd'): string {
+    formatarData(dataParam: Date, formato: string = 'yyyy-MM-dd'): string {
+        const data = new Date(dataParam);
+
         // Adiciona um zero à esquerda se o dia/mês for menor que 10
         const dia = data.getDate().toString().padStart(2, '0'); 
         const mes = (data.getMonth() + 1).toString().padStart(2, '0'); 
@@ -43,30 +45,10 @@ export class AtendimentoUtil {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
-    converterToListDTO(atendimento: Atendimento) {
-        const atendimentoListDto: AtendimentoListDTO = {
-            id: atendimento.id,
-            nomeTutor: atendimento.nomeTutor,
-            nomePet: atendimento.nomePet,
-            data: this.formatarData(atendimento.data, 'dd/MM/yyyy'),
-            raca: atendimento.raca
-        };
-
-        return atendimentoListDto;
-    }
-
-    converterToEditDTO(atendimento: Atendimento) {
-        const atendimentoEditDto: AtendimentoEditDTO = {
-            id: atendimento.id,
-            nomeTutor: atendimento.nomeTutor,
-            nomePet: atendimento.nomePet,
-            data: this.formatarData(atendimento.data),
-            tipo: atendimento.tipo,
-            observacao: atendimento.observacao,
-            raca: atendimento.raca
-        };
-
-        return atendimentoEditDto;
+    compareDates(a: string, b: string, isAsc: boolean): number {
+        const dateA = new Date(a);
+        const dateB = new Date(b);
+        return (dateA < dateB ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
 }

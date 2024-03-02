@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BancoService } from '../../../../service/banco.service';
+import { AtendimentoService } from '../../../../service/atendimento.service';
 import { AtendimentoUtil } from '../../../../util/atendimento.util';
 import { TipoEnum } from '../../../../enum/tipo-enum';
 
@@ -18,7 +18,7 @@ export class AtendimentosFormComponent implements OnInit {
   racas: any[] = [];
   btnText: string = 'Salvar';
 
-  constructor(private service: BancoService) {
+  constructor(private service: AtendimentoService) {
     this.atendimentosForm = new FormGroup({
       'nomeTutor': new FormControl(null, Validators.required),
       'nomePet': new FormControl(null, Validators.required),

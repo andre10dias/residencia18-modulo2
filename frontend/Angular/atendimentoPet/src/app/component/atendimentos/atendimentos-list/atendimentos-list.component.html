@@ -1,24 +1,20 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" *ngIf="dadosCarregados"> 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-        <!-- Name Column -->
         <ng-container matColumnDef="tutor">
           <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomeTutor"> Tutor </th>
           <td mat-cell *matCellDef="let element"> {{element.nomeTutor}} </td>
         </ng-container>
       
-        <!-- pet Column -->
         <ng-container matColumnDef="pet">
           <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomePet"> Pet </th>
           <td mat-cell *matCellDef="let element"> {{element.nomePet}} </td>
         </ng-container>
       
-        <!-- data Column -->
         <ng-container matColumnDef="data" *ngIf="!isScreenSmall()">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="data"> Data </th>
-          <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+          <th mat-header-cell *matHeaderCellDef  mat-sort-header="dataAtendimento"> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.dataAtendimento}} </td>
         </ng-container>
 
-        <!-- raca Column -->
         <ng-container matColumnDef="raca">
           <th mat-header-cell *matHeaderCellDef  mat-sort-header="raca"> Raça </th>
           <td mat-cell *matCellDef="let element"> {{element.raca}} </td>
@@ -52,4 +48,16 @@
                 showFirstLastButtons
                 aria-label="Selecione periódicamente a página de elementos.">
     </mat-paginator>
+
+    <ng-template [ngIf]="!dadosCarregados">
+      <div id="sem-atendimentos">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+    
+    <ng-template [ngIf]="listaAtendimentos.length == 0 && dadosCarregados">
+      <div id="sem-atendimentos">
+          <p>Não existem dados para serem exibidos.</p>
+      </div>
+    </ng-template>
 </div>
