@@ -9,6 +9,7 @@ import { TipoDescricaoEnum, TipoEnum } from '../enum/tipo-enum';
 import { AtendimentoListDTO } from '../model/atendimento/atendimento-list.dto';
 import { Atendimento } from '../model/atendimento/atendimento';
 import { AtendimentoCreateDTO } from '../model/atendimento/atendimento-create.dto';
+import { AtendimentoEditDTO } from '../model/atendimento/atendimento-edit.dto.';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,10 @@ export class AtendimentoService {
     {value: 'rottweiler', viewValue: 'Rottweiler'}
   ];
 
+  
   private novoAtendimentoSubject = new Subject<AtendimentoListDTO>();
   private novoAtendimento: AtendimentoListDTO = {} as AtendimentoListDTO;
+  private _atendimentoAtualizado: AtendimentoListDTO = {} as AtendimentoListDTO;
 
   novoAtendimentoAdicionado() {
     setTimeout(() => {
@@ -56,6 +59,10 @@ export class AtendimentoService {
 
   get novoAtendimentoObservable() {
     return this.novoAtendimentoSubject.asObservable();
+  }
+
+  get atendimentoAtualizado() {
+    return this._atendimentoAtualizado;
   }
 
   constructor(
@@ -79,17 +86,25 @@ export class AtendimentoService {
   }
 
   getAtendimentoById(id: string): Observable<Atendimento> {
-    return this.http.get<Atendimento>(`${this.baseUrl}/atendimento/${id}.json`);
+    // return this.http.get<Atendimento>(`${this.baseUrl}/atendimento/${id}.json`);
+    return this.http.get<Atendimento>(`${this.baseUrl}/atendimento/${id}.json`).pipe(
+      map((data: any) => {
+        data.id = data.name;
+        console.log('getAtendimentoById: ', data);
+        return data as Atendimento;
+      })
+    );
   }
 
   receberDadosFormulario(form: any): void {
-    const [ano, mes, dia] = form.data.split('-');
+    const [ano, mes, dia] = form.dataAtendimento.split('-');
     // console.log('dados recebidos no service: ', form);
 
     // Meses são 0-based, então subtraímos 1
     const data = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
 
     let atendimentoCreate: AtendimentoCreateDTO = {
+      id: null,
       nomeTutor: form.nomeTutor,
       nomePet: form.nomePet,
       dataAtendimento: data,
@@ -100,8 +115,6 @@ export class AtendimentoService {
       updateAt: null
     }
 
-    // let atendimento: AtendimentoListDTO;
-
     this.http.post(`${this.baseUrl}/atendimento.json`, atendimentoCreate).subscribe({
       next: (data: any) => {
         this.novoAtendimento = {
@@ -111,8 +124,43 @@ export class AtendimentoService {
           dataAtendimento: this.util.formatarData(atendimentoCreate.dataAtendimento, 'dd/MM/yyyy'),
           raca: atendimentoCreate.raca
         };
+      },
+      error: (error: any) => {
+        console.log('error: ', error)
+      }
+    });
+  }
 
-        // this.listaAtendimentos.push(atendimento);
+  receberDadosFormularioEdit(form: any): void {
+    const [ano, mes, dia] = form.dataAtendimento.split('-');
+    // console.log('dados recebidos no service: ', form);
+
+    // Meses são 0-based, então subtraímos 1
+    const data = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
+
+    let atendimentoEdit: AtendimentoEditDTO = {
+      id: form.id,
+      nomeTutor: form.nomeTutor,
+      nomePet: form.nomePet,
+      dataAtendimento: data,
+      tipo: form.tipo,
+      observacao: form.observacao,
+      raca: form.raca,
+      updateAt: new Date()
+    }
+
+
+
+    this.http.put(`${this.baseUrl}/atendimento/${form.id}.json`, atendimentoEdit).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this._atendimentoAtualizado = {
+          id: data.name,
+          nomeTutor: atendimentoEdit.nomeTutor,
+          nomePet: atendimentoEdit.nomePet,
+          dataAtendimento: this.util.formatarData(atendimentoEdit.dataAtendimento, 'dd/MM/yyyy'),
+          raca: atendimentoEdit.raca
+        };
       },
       error: (error: any) => {
         console.log('error: ', error)

@@ -1,4 +1,6 @@
 <form [formGroup]="atendimentosForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" name="id" formControlName="id">
+
     <div class="row-1">
         <mat-label>Nome do tutor</mat-label>
         <div id="nome-tutor">
@@ -29,11 +31,11 @@
         <div>
             <mat-label>Data</mat-label>
             <div>
-                <input matInput type="date" formControlName="data" placeholder="Nome de usuário sem espaços"
-                    [ngClass]="{'invalid-field': atendimentosForm.get('data')?.invalid && atendimentosForm.get('data')?.touched}"
+                <input matInput type="date" formControlName="dataAtendimento"
+                    [ngClass]="{'invalid-field': atendimentosForm.get('dataAtendimento')?.invalid && atendimentosForm.get('dataAtendimento')?.touched}"
                 >
-                <div id="data">
-                    <mat-error *ngIf="!atendimentosForm.get('data')?.valid && atendimentosForm.get('data')?.touched"
+                <div id="dataAtendimento">
+                    <mat-error *ngIf="!atendimentosForm.get('dataAtendimento')?.valid && atendimentosForm.get('dataAtendimento')?.touched"
                     >Campo obrigatório.</mat-error>
                 </div>
             </div>

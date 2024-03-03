@@ -1,10 +1,9 @@
-export interface AtendimentoEditDTO {
+export interface AtendimentoFormDTO {
     id: string;
     nomeTutor: string;
     nomePet: string;
-    dataAtendimento: Date;
+    dataAtendimento: string;
     tipo: number;
     observacao: string;
     raca: string;
-    updateAt: Date | null;
 }

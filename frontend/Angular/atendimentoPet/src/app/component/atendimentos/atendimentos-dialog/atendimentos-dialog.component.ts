@@ -1,7 +1,10 @@
 import { Component, Inject } from '@angular/core';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { AtendimentoService } from '../../../service/atendimento.service';
+
+import { ActionEnum } from '../../../enum/action-enum';
 
 @Component({
   selector: 'app-atendimentos-dialog',
@@ -11,14 +14,15 @@ import { AtendimentoService } from '../../../service/atendimento.service';
 export class AtendimentosDialogComponent {
   titulo: string = 'Cadastrar atendimentos';
   dadosItemSelecionado: any;
+  action: string = ActionEnum.CREATE;
 
   constructor(
     private service: AtendimentoService,
     public dialogRef: MatDialogRef<AtendimentosDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    // console.log('[atendimentos-dialog.component] data: ', data);
     if (data) {
+      this.action = ActionEnum.EDIT;
       this.titulo = 'Editar atendimentos';
       this.dadosItemSelecionado = data;
     }
@@ -30,7 +34,11 @@ export class AtendimentosDialogComponent {
   // }
 
   enviarFormulario(formulario: any) {
-    this.service.receberDadosFormulario(formulario);
+    if (this.action === ActionEnum.CREATE) {
+      this.service.receberDadosFormulario(formulario);
+    } else if (this.action === ActionEnum.EDIT) {
+      this.service.receberDadosFormularioEdit(formulario);
+    }
     // Fechar o diálogo após salvar e envia os dados 
     // do formulário para a lista de atendimentos
     // this.dialogRef.close(formulario); 

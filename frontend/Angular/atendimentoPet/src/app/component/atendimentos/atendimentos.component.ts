@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+
+import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-dialog.component';
 
 import { AtendimentoService } from '../../service/atendimento.service';
 import { AtendimentoConverter } from '../../converter/atendimento.converter';
 
-import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-dialog.component';
 import { AtendimentoListDTO } from '../../model/atendimento/atendimento-list.dto';
 
 @Component({
@@ -16,7 +16,6 @@ import { AtendimentoListDTO } from '../../model/atendimento/atendimento-list.dto
 })
 export class AtendimentosComponent {
   listaAtendimentos: AtendimentoListDTO[] = [];
-  dataSource = new MatTableDataSource<AtendimentoListDTO>();
 
   constructor(
     private service: AtendimentoService,

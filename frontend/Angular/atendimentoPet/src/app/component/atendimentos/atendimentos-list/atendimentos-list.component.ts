@@ -5,14 +5,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 
+import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
+import { DialogComponent } from '../../dialog/dialog.component';
+
 import { AtendimentoService } from '../../../service/atendimento.service';
 import { AtendimentoUtil } from '../../../util/atendimento.util';
 import { AtendimentoConverter } from '../../../converter/atendimento.converter';
 
-import { AtendimentosDialogComponent } from '../atendimentos-dialog/atendimentos-dialog.component';
 import { AtendimentoListDTO } from '../../../model/atendimento/atendimento-list.dto';
-import { AtendimentoEditDTO } from '../../../model/atendimento/atendimento-edit.dto.';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { AtendimentoFormDTO } from '../../../model/atendimento/atendimento-form.dto';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -65,7 +66,7 @@ export class AtendimentosListComponent implements OnInit {
     this.service.getAllAtendimentos().subscribe({
       next: atendimentos => {
         this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
-        console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
+        // console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
         this.dadosCarregados = true;
         this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
         this.sortedData = this.listaAtendimentos.slice();
@@ -87,7 +88,7 @@ export class AtendimentosListComponent implements OnInit {
     });
   }
 
-  openDialog(element?: AtendimentoEditDTO): void {
+  openDialog(element?: AtendimentoFormDTO): void {
     const dialogRef = this.dialog.open(AtendimentosDialogComponent, {
       width: '600px',
       disableClose: true,
@@ -95,19 +96,26 @@ export class AtendimentosListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('result: ', result);
-      this.dataSource._updateChangeSubscription(); // Atualizar a fonte de dados da tabela
+      console.log('[atendimentos-list] openDialog - element: ', element);
+      const index = this.dataSource.data.findIndex(item => item.id === element?.id);
+      if (index !== -1) {
+        setTimeout(() => {
+          this.dataSource.data[index] = this.service.atendimentoAtualizado;
+          this.dataSource._updateChangeSubscription();
+        }, 1000);
+      }
     });
   }
 
   editItem(id: string): void {
-    // this.service.getAtendimentoById(id).subscribe(atendimento => {
-    //     if (atendimento) {
-    //         let atendimentoEditDTO: AtendimentoEditDTO = this.converter.toAtendimentoEditDTO(atendimento);
-    //         // console.log('[atendimentos-list] editItem: ', atendimentoEditDTO);
-    //         this.openDialog(atendimentoEditDTO);
-    //     }
-    // });
+    this.service.getAtendimentoById(id).subscribe(atendimento => {
+      if (atendimento) {
+        atendimento.id = id;
+        let atendimentoFormDTO: AtendimentoFormDTO = this.converter.toAtendimentoFormDTO(atendimento);
+        console.log('[atendimentos-list] editItem - atendimento: ', atendimento);
+        this.openDialog(atendimentoFormDTO);
+      }
+    });
   }
 
   removeItem(id: string): void {

@@ -5,6 +5,7 @@ import { AtendimentoUtil } from "../util/atendimento.util";
 import { Atendimento } from "../model/atendimento/atendimento";
 import { AtendimentoListDTO } from "../model/atendimento/atendimento-list.dto";
 import { AtendimentoEditDTO } from "../model/atendimento/atendimento-edit.dto.";
+import { AtendimentoFormDTO } from "../model/atendimento/atendimento-form.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -42,9 +43,9 @@ export class AtendimentoConverter {
 
         return atendimentosListDTO;
     }
-    
-    toAtendimentoEditDTO(atendimento: Atendimento): AtendimentoEditDTO {
-        return {
+
+    toAtendimentoFormDTO(atendimento: Atendimento): AtendimentoFormDTO {
+        let atendimentoFormDTO: AtendimentoFormDTO = {
             id: atendimento.id,
             nomeTutor: atendimento.nomeTutor,
             nomePet: atendimento.nomePet,
@@ -53,6 +54,23 @@ export class AtendimentoConverter {
             observacao: atendimento.observacao,
             raca: atendimento.raca
         };
+
+        return atendimentoFormDTO;
+    }
+    
+    toAtendimentoEditDTO(atendimento: Atendimento): AtendimentoEditDTO {
+        let atendimentoEditDTO: AtendimentoEditDTO = {
+            id: atendimento.id,
+            nomeTutor: atendimento.nomeTutor,
+            nomePet: atendimento.nomePet,
+            dataAtendimento: atendimento.dataAtendimento,
+            tipo: atendimento.tipo,
+            observacao: atendimento.observacao,
+            raca: atendimento.raca,
+            updateAt: atendimento.updateAt
+        };
+
+        return atendimentoEditDTO;
     }
 
 }

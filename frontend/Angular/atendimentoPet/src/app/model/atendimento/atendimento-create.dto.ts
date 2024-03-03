@@ -1,4 +1,5 @@
 export interface AtendimentoCreateDTO {
+    id: string | null
     nomeTutor: string
     nomePet: string
     dataAtendimento: Date

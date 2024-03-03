@@ -1,7 +1,8 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { AtendimentoService } from '../../../../service/atendimento.service';
-import { AtendimentoUtil } from '../../../../util/atendimento.util';
+
 import { TipoEnum } from '../../../../enum/tipo-enum';
 
 @Component({
@@ -20,9 +21,10 @@ export class AtendimentosFormComponent implements OnInit {
 
   constructor(private service: AtendimentoService) {
     this.atendimentosForm = new FormGroup({
+      'id': new FormControl(null),
       'nomeTutor': new FormControl(null, Validators.required),
       'nomePet': new FormControl(null, Validators.required),
-      'data': new FormControl(null, Validators.required),
+      'dataAtendimento': new FormControl(null, Validators.required),
       'tipo': new FormControl(null, Validators.required),
       'raca': new FormControl(null, Validators.required),
       'observacao': new FormControl(null, Validators.required)
@@ -30,12 +32,13 @@ export class AtendimentosFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log('[atendimentos-form] dadosItemSelecionado: ', this.dadosItemSelecionado);
+    console.log('[atendimentos-form] dadosItemSelecionado: ', this.dadosItemSelecionado);
     if (this.dadosItemSelecionado) {
       this.atendimentosForm.patchValue({
+        'id': this.dadosItemSelecionado.id,
         'nomeTutor': this.dadosItemSelecionado.nomeTutor,
         'nomePet': this.dadosItemSelecionado.nomePet,
-        'data': this.dadosItemSelecionado.data,
+        'dataAtendimento': this.dadosItemSelecionado.dataAtendimento,
         'tipo': this.dadosItemSelecionado.tipo,
         'raca': this.dadosItemSelecionado.raca,
         'observacao': this.dadosItemSelecionado.observacao
