@@ -47,7 +47,6 @@ export class AtendimentosListComponent implements OnInit {
   ngOnInit(): void {
     this.service.novoAtendimentoObservable.subscribe({
       next: (atendimento: AtendimentoListDTO) => {
-        // console.log('[atendimentos-list] novoAtendimentoObservable: ', atendimento);
         this.dataSource.data.push(atendimento);
         this.dataSource._updateChangeSubscription();
       }
@@ -67,10 +66,10 @@ export class AtendimentosListComponent implements OnInit {
       next: atendimentos => {
         this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
         // console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
-        this.dadosCarregados = true;
         this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
         this.sortedData = this.listaAtendimentos.slice();
-
+        this.dadosCarregados = true;
+        
         setTimeout(() => {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -81,6 +80,9 @@ export class AtendimentosListComponent implements OnInit {
             label.innerHTML = 'Itens por página:';
           }
         }, 200);
+
+        this.spinnerOn();
+        this.spinnerOff();
       },
       error: error => {
         console.error('Erro ao carregar atendimentos:', error);
@@ -96,14 +98,22 @@ export class AtendimentosListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('[atendimentos-list] openDialog - element: ', element);
-      const index = this.dataSource.data.findIndex(item => item.id === element?.id);
-      if (index !== -1) {
-        setTimeout(() => {
-          this.dataSource.data[index] = this.service.atendimentoAtualizado;
-          this.dataSource._updateChangeSubscription();
-        }, 1000);
+      this.spinnerOn();
+      console.log('result: ', result);
+
+      if (result) {
+        const index = this.dataSource.data.findIndex(item => item.id === element?.id);
+
+        if (index !== -1) {
+          setTimeout(() => {
+            this.dataSource.data[index] = this.service.atendimentoAtualizado;
+            this.dataSource._updateChangeSubscription();
+            this.dadosCarregados = true;
+          }, 1000);
+        }
       }
+
+      this.spinnerOff();
     });
   }
 
@@ -112,13 +122,13 @@ export class AtendimentosListComponent implements OnInit {
       if (atendimento) {
         atendimento.id = id;
         let atendimentoFormDTO: AtendimentoFormDTO = this.converter.toAtendimentoFormDTO(atendimento);
-        console.log('[atendimentos-list] editItem - atendimento: ', atendimento);
         this.openDialog(atendimentoFormDTO);
       }
     });
   }
 
   removeItem(id: string): void {
+    this.service.deleteAtendimento(id);
     const index = this.dataSource.data.findIndex(item => item.id === id);
     if (index !== -1) {
       this.dataSource.data.splice(index, 1);
@@ -138,10 +148,13 @@ export class AtendimentosListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.spinnerOn();
+
       if (result) {
         this.removeItem(element);
-        this.dataSource._updateChangeSubscription();
       }
+
+      this.spinnerOff();
     });
   }
 
@@ -173,6 +186,16 @@ export class AtendimentosListComponent implements OnInit {
 
   isScreenSmall(): boolean {
     return this.screenWidth <= 500;
+  }
+
+  spinnerOn(): void {
+    this.dadosCarregados = false;
+  }
+
+  spinnerOff(): void {
+    setTimeout(() => {
+      this.dadosCarregados = true;
+    }, 1000);
   }
   
 }

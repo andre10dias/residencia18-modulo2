@@ -1,63 +1,67 @@
-<div class="mat-elevation-z8" *ngIf="dadosCarregados"> 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-        <ng-container matColumnDef="tutor">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomeTutor"> Tutor </th>
-          <td mat-cell *matCellDef="let element"> {{element.nomeTutor}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="pet">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomePet"> Pet </th>
-          <td mat-cell *matCellDef="let element"> {{element.nomePet}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="data" *ngIf="!isScreenSmall()">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="dataAtendimento"> Data </th>
-          <td mat-cell *matCellDef="let element"> {{element.dataAtendimento}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="raca">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header="raca"> Raça </th>
-          <td mat-cell *matCellDef="let element"> {{element.raca}} </td>
-        </ng-container>
-
-        <ng-container  matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with menu icon">
-              <mat-icon>menu</mat-icon>
-              <mat-menu #menu="matMenu">
-                <mat-list>
-                  <mat-list-item>
-                    <button mat-menu-item (click)="editItem(element.id)">Editar</button>
-                  </mat-list-item>
-                  <mat-divider></mat-divider>
-                  <mat-list-item>
-                    <button mat-menu-item (click)="openConfirmDialog(element.id)">Excluir</button>
-                  </mat-list-item>
-                </mat-list>
-              </mat-menu>
-            </button>
-          </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                showFirstLastButtons
-                aria-label="Selecione periódicamente a página de elementos.">
-    </mat-paginator>
-
-    <ng-template [ngIf]="!dadosCarregados">
-      <div id="sem-atendimentos">
-        <mat-spinner></mat-spinner>
-      </div>
-    </ng-template>
+<div class="mat-elevation-z8" *ngIf="listaAtendimentos.length > 0"> 
+  <div class="spinner" [ngClass]="{'loading': !dadosCarregados}" *ngIf="!dadosCarregados">
+    <mat-spinner></mat-spinner>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="tutor">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomeTutor"> Tutor </th>
+        <td mat-cell *matCellDef="let element"> {{element.nomeTutor}} </td>
+      </ng-container>
     
-    <ng-template [ngIf]="listaAtendimentos.length == 0 && dadosCarregados">
-      <div id="sem-atendimentos">
-          <p>Não existem dados para serem exibidos.</p>
-      </div>
-    </ng-template>
+      <ng-container matColumnDef="pet">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomePet"> Pet </th>
+        <td mat-cell *matCellDef="let element"> {{element.nomePet}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="data" *ngIf="!isScreenSmall()">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="dataAtendimento"> Data </th>
+        <td mat-cell *matCellDef="let element"> {{element.dataAtendimento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="raca">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="raca"> Raça </th>
+        <td mat-cell *matCellDef="let element"> {{element.raca}} </td>
+      </ng-container>
+
+      <ng-container  matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+            <mat-menu #menu="matMenu">
+              <mat-list>
+                <mat-list-item>
+                  <button mat-menu-item (click)="editItem(element.id)">Editar</button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                  <button mat-menu-item (click)="openConfirmDialog(element.id)">Excluir</button>
+                </mat-list-item>
+              </mat-list>
+            </mat-menu>
+          </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Selecione periódicamente a página de elementos.">
+  </mat-paginator>
+
+  <!-- <ng-template> -->
+    <!-- [ngIf]="!dadosCarregados" -->
+    <!-- <div id="sem-atendimentos">
+      <mat-spinner></mat-spinner>
+    </div> -->
+  <!-- </ng-template> -->
+  
+  <ng-template [ngIf]="listaAtendimentos.length == 0 && dadosCarregados">
+    <div id="sem-atendimentos">
+        <p>Não existem dados para serem exibidos.</p>
+    </div>
+  </ng-template>
 </div>

@@ -3,6 +3,23 @@
     box-shadow: none;
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+}
+
 .mat-mdc-card-header {
     justify-content: space-between;
     align-items: center;

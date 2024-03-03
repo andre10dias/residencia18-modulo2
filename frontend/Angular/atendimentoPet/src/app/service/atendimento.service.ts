@@ -44,9 +44,8 @@ export class AtendimentoService {
     {value: 'labrador', viewValue: 'Labrador'},
     {value: 'rottweiler', viewValue: 'Rottweiler'}
   ];
-
   
-  private novoAtendimentoSubject = new Subject<AtendimentoListDTO>();
+  private novoAtendimentoSubject = new Subject<any>();
   private novoAtendimento: AtendimentoListDTO = {} as AtendimentoListDTO;
   private _atendimentoAtualizado: AtendimentoListDTO = {} as AtendimentoListDTO;
 
@@ -149,11 +148,8 @@ export class AtendimentoService {
       updateAt: new Date()
     }
 
-
-
     this.http.put(`${this.baseUrl}/atendimento/${form.id}.json`, atendimentoEdit).subscribe({
       next: (data: any) => {
-        console.log(data);
         this._atendimentoAtualizado = {
           id: data.name,
           nomeTutor: atendimentoEdit.nomeTutor,
@@ -164,6 +160,17 @@ export class AtendimentoService {
       },
       error: (error: any) => {
         console.log('error: ', error)
+      }
+    });
+  }
+
+  deleteAtendimento(id: string) {
+    return this.http.delete(`${this.baseUrl}/atendimento/${id}.json`).subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error: (error: any) => {
+        console.log('error: ', error);
       }
     });
   }

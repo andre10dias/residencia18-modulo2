@@ -97,7 +97,7 @@
     </div>
 
     <div class="row-5">
-        <button type="submit" mat-button color="primary">{{btnText}}</button>
+        <button type="submit" mat-button color="primary" [mat-dialog-close]="true">{{btnText}}</button>
         <button mat-button [mat-dialog-close]="false">Cancelar</button>
     </div>
 </form>

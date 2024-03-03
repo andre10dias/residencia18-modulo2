@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-dialog.component';
 
 import { AtendimentoService } from '../../service/atendimento.service';
-import { AtendimentoConverter } from '../../converter/atendimento.converter';
 
 import { AtendimentoListDTO } from '../../model/atendimento/atendimento-list.dto';
 
@@ -16,10 +15,9 @@ import { AtendimentoListDTO } from '../../model/atendimento/atendimento-list.dto
 })
 export class AtendimentosComponent {
   listaAtendimentos: AtendimentoListDTO[] = [];
-
+  dadosCarregados: boolean = true;
   constructor(
     private service: AtendimentoService,
-    private converter: AtendimentoConverter,
     public dialog: MatDialog
   ) {
   }
@@ -32,19 +30,12 @@ export class AtendimentosComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.dadosCarregados = false;
       this.service.novoAtendimentoAdicionado();
-    });
-  }
 
-  getListaAtendimentos(): void {
-    this.service.getAllAtendimentos().subscribe({
-      next: atendimentos => {
-        this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
-        // console.log('[atendimentos.component] getListaAtendimentos: ',this.listaAtendimentos);
-      },
-      error: error => {
-        console.error('Erro ao carregar atendimentos:', error);
-      }
+      setTimeout(() => {
+        this.dadosCarregados = true;
+      }, 1000);
     });
   }
 
