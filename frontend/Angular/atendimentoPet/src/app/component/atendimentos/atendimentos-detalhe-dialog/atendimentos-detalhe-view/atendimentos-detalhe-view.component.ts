@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+
+import { ImagemService } from '../../../../service/imagem.service';
+
 import { AtendimentoFormDTO } from '../../../../model/atendimento/atendimento-form.dto';
 import { AtendimentoDetailDTO } from '../../../../model/atendimento/atendimento-detail.dto';
-import { ImagemService } from '../../../../service/imagem.service';
 import { ImagemPet } from '../../../../model/imagem/imagem-pet';
 
 @Component({

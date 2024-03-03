@@ -64,14 +64,15 @@ export class AtendimentosListComponent implements OnInit {
       this.displayedColumns = ['tutor', 'pet', 'raca', 'action'];
     }
   }
-
+  
   carregarAtendimentos(): void {
     this.service.getAllAtendimentos().subscribe({
       next: atendimentos => {
+        this.spinnerOn();
         this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
         this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
         this.sortedData = this.listaAtendimentos.slice();
-        this.dadosCarregados = true;
+        // this.dadosCarregados = true;
         // console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
         
         setTimeout(() => {
@@ -85,7 +86,6 @@ export class AtendimentosListComponent implements OnInit {
           }
         }, 200);
 
-        this.spinnerOn();
         this.spinnerOff();
       },
       error: error => {
