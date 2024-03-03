@@ -19,7 +19,6 @@ export class AtendimentosDetalheDialogComponent {
   ) {
     this.title = data.title;
     this.dadosItemSelecionado = data.element;
-    console.log('[atendimentos-detalhe-dialog] data: ', data);
   }
 
 }

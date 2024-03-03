@@ -108,7 +108,8 @@ export class AtendimentosListComponent implements OnInit {
 
         if (index !== -1) {
           setTimeout(() => {
-            this.dataSource.data[index] = this.service.atendimentoAtualizado;
+            let atendimento = this.service.atendimentoAtualizado;
+            this.dataSource.data[index] = atendimento;
             this.dataSource._updateChangeSubscription();
             this.dadosCarregados = true;
           }, 1000);
@@ -154,7 +155,6 @@ export class AtendimentosListComponent implements OnInit {
     title: string = this.title,
     action: string = this.action
   ): void {
-    console.log('[openDetalhesDialog] element: ', element);
     const dialogRef = this.dialog.open(AtendimentosDetalheDialogComponent, {
       width: '600px',
       disableClose: true,

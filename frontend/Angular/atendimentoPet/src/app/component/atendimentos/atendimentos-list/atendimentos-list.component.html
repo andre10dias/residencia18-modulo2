@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8" *ngIf="listaAtendimentos.length > 0"> 
+<div class="mat-elevation-z8" *ngIf="listaAtendimentos.length > 0; else elseData"> 
   <div class="spinner loading" *ngIf="!spinner">
     <mat-spinner></mat-spinner>
   </div>
@@ -57,8 +57,10 @@
   </mat-paginator>
 </div>
 
-<ng-template [*ngIf]="listaAtendimentos.length == 0 && !spinner"]>
+<!-- <div *ngIf="listaAtendimentos.length == 0 && !spinner"]> -->
+<ng-template #elseData>
   <div id="sem-atendimentos">
       <p>Não existem dados para serem exibidos.</p>
   </div>
 </ng-template>
+<!-- </div> -->

@@ -89,7 +89,6 @@ export class AtendimentoService {
     return this.http.get<Atendimento>(`${this.baseUrl}/atendimento/${id}.json`).pipe(
       map((data: any) => {
         data.id = data.name;
-        console.log('getAtendimentoById: ', data);
         return data as Atendimento;
       })
     );
@@ -151,7 +150,7 @@ export class AtendimentoService {
     this.http.put(`${this.baseUrl}/atendimento/${form.id}.json`, atendimentoEdit).subscribe({
       next: (data: any) => {
         this._atendimentoAtualizado = {
-          id: data.name,
+          id: data.id,
           nomeTutor: atendimentoEdit.nomeTutor,
           nomePet: atendimentoEdit.nomePet,
           dataAtendimento: this.util.formatarData(atendimentoEdit.dataAtendimento, 'dd/MM/yyyy'),
@@ -167,10 +166,10 @@ export class AtendimentoService {
   deleteAtendimento(id: string) {
     return this.http.delete(`${this.baseUrl}/atendimento/${id}.json`).subscribe({
       next: (data: any) => {
-        console.log(data);
+        // console.log(data);
       },
       error: (error: any) => {
-        console.log('error: ', error);
+        console.log('error: ', error)
       }
     });
   }
