@@ -1,20 +1,20 @@
-<div class="mat-elevation-z8" *ngIf="listaAtendimentos.length > 0"> 
-  <div class="spinner" [ngClass]="{'loading': !dadosCarregados}" *ngIf="!dadosCarregados">
+<div class="mat-elevation-z8" *ngIf="listaAtendimentos.length > 0; else elseData"> 
+  <div class="spinner loading" *ngIf="!spinner">
     <mat-spinner></mat-spinner>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <ng-container matColumnDef="tutor">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomeTutor"> Tutor </th>
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomeTutor"> Nome do tutor </th>
         <td mat-cell *matCellDef="let element"> {{element.nomeTutor}} </td>
       </ng-container>
     
       <ng-container matColumnDef="pet">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomePet"> Pet </th>
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="nomePet"> Nome do Pet </th>
         <td mat-cell *matCellDef="let element"> {{element.nomePet}} </td>
       </ng-container>
     
       <ng-container matColumnDef="data" *ngIf="!isScreenSmall()">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header="dataAtendimento"> Data </th>
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header="dataAtendimento"> Data de atendimento </th>
         <td mat-cell *matCellDef="let element"> {{element.dataAtendimento}} </td>
       </ng-container>
 
@@ -30,6 +30,10 @@
             <mat-icon>menu</mat-icon>
             <mat-menu #menu="matMenu">
               <mat-list>
+                <mat-list-item>
+                  <button mat-menu-item (click)="detalharItem(element.id)">Detalhes</button>
+                </mat-list-item>
+                <mat-divider></mat-divider>
                 <mat-list-item>
                   <button mat-menu-item (click)="editItem(element.id)">Editar</button>
                 </mat-list-item>
@@ -51,17 +55,10 @@
               showFirstLastButtons
               aria-label="Selecione periódicamente a página de elementos.">
   </mat-paginator>
-
-  <!-- <ng-template> -->
-    <!-- [ngIf]="!dadosCarregados" -->
-    <!-- <div id="sem-atendimentos">
-      <mat-spinner></mat-spinner>
-    </div> -->
-  <!-- </ng-template> -->
-  
-  <ng-template [ngIf]="listaAtendimentos.length == 0 && dadosCarregados">
-    <div id="sem-atendimentos">
-        <p>Não existem dados para serem exibidos.</p>
-    </div>
-  </ng-template>
 </div>
+
+<ng-template #elseData>
+  <div id="sem-atendimentos">
+      <p>Não existem dados para serem exibidos.</p>
+  </div>
+</ng-template>

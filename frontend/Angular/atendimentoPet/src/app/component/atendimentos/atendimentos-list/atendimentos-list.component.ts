@@ -14,6 +14,8 @@ import { AtendimentoConverter } from '../../../converter/atendimento.converter';
 
 import { AtendimentoListDTO } from '../../../model/atendimento/atendimento-list.dto';
 import { AtendimentoFormDTO } from '../../../model/atendimento/atendimento-form.dto';
+import { ActionEnum } from '../../../enum/action-enum';
+import { AtendimentosDetalheDialogComponent } from '../atendimentos-detalhe-dialog/atendimentos-detalhe-dialog.component';
 
 @Component({
   selector: 'app-atendimentos-list',
@@ -26,13 +28,15 @@ export class AtendimentosListComponent implements OnInit {
   
   listaAtendimentos: AtendimentoListDTO[] = [];
   dadosCarregados: boolean = false;
+  spinner: boolean = false;
   screenWidth: number = window.innerWidth;
   
   displayedColumns: string[] = ['tutor', 'pet', 'data', 'raca', 'action'];
   dataSource = new MatTableDataSource<AtendimentoListDTO>();
   sortedData: AtendimentoListDTO[] = [];
 
-  removeTitle: string = 'Excluir atendimento';
+  action: string = ActionEnum.DELETE;
+  title: string = this.action === ActionEnum.DELETE ? 'Excluir atendimento' : 'Detalhes atendimento';
   removeTemplate: string = '<div>Tem certeza que deseja remover?</div>';
 
   constructor(
@@ -65,10 +69,10 @@ export class AtendimentosListComponent implements OnInit {
     this.service.getAllAtendimentos().subscribe({
       next: atendimentos => {
         this.listaAtendimentos = this.converter.toListAtendimentoListDTOs(atendimentos);
-        // console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
         this.dataSource = new MatTableDataSource<AtendimentoListDTO>(this.listaAtendimentos);
         this.sortedData = this.listaAtendimentos.slice();
         this.dadosCarregados = true;
+        // console.log('[atendimentos-list] carregarAtendimentos: ', this.listaAtendimentos);
         
         setTimeout(() => {
           this.dataSource.paginator = this.paginator;
@@ -98,10 +102,8 @@ export class AtendimentosListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.spinnerOn();
-      console.log('result: ', result);
-
       if (result) {
+        this.spinnerOn();
         const index = this.dataSource.data.findIndex(item => item.id === element?.id);
 
         if (index !== -1) {
@@ -111,9 +113,9 @@ export class AtendimentosListComponent implements OnInit {
             this.dadosCarregados = true;
           }, 1000);
         }
-      }
 
-      this.spinnerOff();
+        this.spinnerOff();
+      }
     });
   }
 
@@ -136,25 +138,55 @@ export class AtendimentosListComponent implements OnInit {
     }
   }
 
+  detalharItem(id: string): void {
+    this.service.getAtendimentoById(id).subscribe(atendimento => {
+      if (atendimento) {
+        atendimento.id = id;
+        let atendimentoFormDTO: AtendimentoFormDTO = this.converter.toAtendimentoFormDTO(atendimento);
+        this.openDetalhesDialog(atendimentoFormDTO, '', 'Detalhes do atendimento', '');
+      }
+    });
+  }
+
+  openDetalhesDialog(
+    element?: any, 
+    template?: any, 
+    title: string = this.title,
+    action: string = this.action
+  ): void {
+    console.log('[openDetalhesDialog] element: ', element);
+    const dialogRef = this.dialog.open(AtendimentosDetalheDialogComponent, {
+      width: '600px',
+      disableClose: true,
+      data: {title, template, element, action}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.spinnerOn();
+        this.spinnerOff();
+      }
+    });
+  }
+
   openConfirmDialog(
     element?: any, 
     template: string = this.removeTemplate, 
-    title: string = this.removeTitle
+    title: string = this.title,
+    action: string = this.action
   ): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
       disableClose: true,
-      data: {title, template, element}
+      data: {title, template, element, action}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.spinnerOn();
-
-      if (result) {
+      if (result && action === ActionEnum.DELETE) {
+        this.spinnerOn();
         this.removeItem(element);
+        this.spinnerOff();
       }
-
-      this.spinnerOff();
     });
   }
 
@@ -189,12 +221,12 @@ export class AtendimentosListComponent implements OnInit {
   }
 
   spinnerOn(): void {
-    this.dadosCarregados = false;
+    this.spinner = false;
   }
 
   spinnerOff(): void {
     setTimeout(() => {
-      this.dadosCarregados = true;
+      this.spinner = true;
     }, 1000);
   }
   

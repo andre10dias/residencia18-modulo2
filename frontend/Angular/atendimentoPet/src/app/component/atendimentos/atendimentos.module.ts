@@ -28,13 +28,17 @@ import { AtendimentosListComponent } from './atendimentos-list/atendimentos-list
 import { AtendimentosFormComponent } from './atendimentos-dialog/atendimentos-form/atendimentos-form.component';
 import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AtendimentosDetalheDialogComponent } from './atendimentos-detalhe-dialog/atendimentos-detalhe-dialog.component';
+import { AtendimentosDetalheViewComponent } from './atendimentos-detalhe-dialog/atendimentos-detalhe-view/atendimentos-detalhe-view.component';
 
 @NgModule({
   declarations: [
     AtendimentosComponent,
     AtendimentosListComponent,
     AtendimentosFormComponent,
-    AtendimentosDialogComponent
+    AtendimentosDialogComponent,
+    AtendimentosDetalheDialogComponent,
+    AtendimentosDetalheViewComponent
   ],
   imports: [
     CommonModule,

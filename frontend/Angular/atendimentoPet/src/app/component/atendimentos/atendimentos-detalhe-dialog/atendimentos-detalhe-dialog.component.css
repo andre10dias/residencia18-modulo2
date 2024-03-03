@@ -34,10 +34,10 @@ mat-dialog-actions > button {
     height: 40px;
 }
 
-button[type="submit"], .dialog-close > button {
+.dialog-close > button {
     background-color: #3f51b5;
     color: #ffff !important;
-    /* border: none; */
+    margin: 0px !important;
 }
 
 button { 

@@ -1,0 +1,18 @@
+<div class="atendimentos-detalhe-view">
+    <div class="view-header">
+        <div class="view-img">
+            <img [src]="form.imagem.path" alt="">
+        </div>
+        <div class="view-info">
+            <h1>{{form.nomePet}}</h1>
+            <p><strong>Nome tutor:</strong> {{form.nomeTutor}}</p>
+            <p><strong>Raça:</strong> {{form.raca}}</p>
+        </div>
+    </div>
+    <div class="view-observacao">
+        <p><strong>Observações:</strong></p>
+        <p>
+            {{form.observacao}}
+        </p>
+    </div>
+</div>

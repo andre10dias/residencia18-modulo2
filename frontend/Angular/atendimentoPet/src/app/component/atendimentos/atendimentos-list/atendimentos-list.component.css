@@ -32,4 +32,6 @@ mat-divider {
 #sem-atendimentos {
     display: flex;
     justify-content: center;
-}
+    align-items: center;
+    height: 100%; /* Para garantir que o conteúdo seja centralizado verticalmente */
+  }

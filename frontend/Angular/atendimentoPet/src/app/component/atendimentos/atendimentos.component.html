@@ -1,15 +1,15 @@
-<mat-card id="card-list">
-    <mat-card-header>
+<div id="atendimentos-list">
+    <div class="header">
       <h2>Lista de Atendimentos</h2>
       <div class="button-container">
         <button mat-button color="primary" (click)="openDialog()">Cadastrar atendimento</button>
       </div>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="spinner loading" *ngIf="!dadosCarregados">
+    </div>
+    <div class="content">
+        <div class="spinner loading" *ngIf="!spinner">
           <mat-spinner></mat-spinner>
         </div>
         <app-atendimentos-list></app-atendimentos-list>
-    </mat-card-content>
-</mat-card>
+    </div>
+</div>
   

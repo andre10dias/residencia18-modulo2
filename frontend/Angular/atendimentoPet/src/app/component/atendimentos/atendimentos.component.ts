@@ -15,7 +15,7 @@ import { AtendimentoListDTO } from '../../model/atendimento/atendimento-list.dto
 })
 export class AtendimentosComponent {
   listaAtendimentos: AtendimentoListDTO[] = [];
-  dadosCarregados: boolean = true;
+  spinner: boolean = true;
   constructor(
     private service: AtendimentoService,
     public dialog: MatDialog
@@ -30,12 +30,14 @@ export class AtendimentosComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dadosCarregados = false;
-      this.service.novoAtendimentoAdicionado();
-
-      setTimeout(() => {
-        this.dadosCarregados = true;
-      }, 1000);
+      if (result) {
+        this.spinner = false;
+        this.service.novoAtendimentoAdicionado();
+  
+        setTimeout(() => {
+          this.spinner = true;
+        }, 1000);
+      }
     });
   }
 
