@@ -10,44 +10,30 @@ import { AtendimentoListDTO } from '../model/atendimento/atendimento-list.dto';
 import { Atendimento } from '../model/atendimento/atendimento';
 import { AtendimentoCreateDTO } from '../model/atendimento/atendimento-create.dto';
 import { AtendimentoEditDTO } from '../model/atendimento/atendimento-edit.dto.';
+import { RacaService } from './raca.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtendimentoService {
-  baseUrl = 'https://atendimento-pet-default-rtdb.firebaseio.com';
+  baseUrl = 'https://atendimento-pet-default-rtdb.firebaseio.com/atendimento';
 
   tipo: any[] = [
     {value: '', viewValue: 'Selecione...'},
     {value: TipoEnum.GATO, viewValue: TipoDescricaoEnum.GATO},
     {value: TipoEnum.CACHORRO, viewValue: TipoDescricaoEnum.CACHORRO},
   ];
-
-  racaGato: any[] = [
-    {value: '', viewValue: 'Selecione...'},
-    {value: 'angora', viewValue: 'Angorá'},
-    {value: 'bengal', viewValue: 'Bengal'},
-    {value: 'british', viewValue: 'British shorthair'},
-    {value: 'exotico', viewValue: 'Exótico'},
-    {value: 'persa', viewValue: 'Persa'},
-    {value: 'ragdoll', viewValue: 'Ragdoll'},
-    {value: 'siames', viewValue: 'Siamês'},
-    {value: 'sphynx', viewValue: 'Sphynx'}
-  ];
-
-  racaCachorro: any[] = [
-    {value: '', viewValue: 'Selecione...'},
-    {value: 'buldogue', viewValue: 'Buldogue'},
-    {value: 'dachshund', viewValue: 'Dachshund'},
-    {value: 'pastor', viewValue: 'Pastor Alemão'},
-    {value: 'poodle', viewValue: 'Poodle'},
-    {value: 'labrador', viewValue: 'Labrador'},
-    {value: 'rottweiler', viewValue: 'Rottweiler'}
-  ];
   
   private novoAtendimentoSubject = new Subject<any>();
   private novoAtendimento: AtendimentoListDTO = {} as AtendimentoListDTO;
   private _atendimentoAtualizado: AtendimentoListDTO = {} as AtendimentoListDTO;
+
+  constructor(
+    private http: HttpClient,
+    private racaService: RacaService,
+    private util: AtendimentoUtil
+  ) {
+  }
 
   novoAtendimentoAdicionado() {
     setTimeout(() => {
@@ -64,21 +50,17 @@ export class AtendimentoService {
     return this._atendimentoAtualizado;
   }
 
-  constructor(
-    private http: HttpClient,
-    private util: AtendimentoUtil
-  ) {
-  }
-
   getAllAtendimentos(): Observable<Atendimento[]> {
-    return this.http.get<{ [key: string]: Atendimento }>(`${this.baseUrl}/atendimento.json`).pipe(
+    return this.http.get<{ [key: string]: Atendimento }>(`${this.baseUrl}.json`).pipe(
       map(data => {
         const listaAtendimento: Atendimento[] = [];
+
         for (const key in data) {
           if (data.hasOwnProperty(key)) {
             listaAtendimento.push({ ...(data as any)[key], id: key });
           }
         }
+
         return listaAtendimento;
       })
     );
@@ -86,7 +68,7 @@ export class AtendimentoService {
 
   getAtendimentoById(id: string): Observable<Atendimento> {
     // return this.http.get<Atendimento>(`${this.baseUrl}/atendimento/${id}.json`);
-    return this.http.get<Atendimento>(`${this.baseUrl}/atendimento/${id}.json`).pipe(
+    return this.http.get<Atendimento>(`${this.baseUrl}/${id}.json`).pipe(
       map((data: any) => {
         data.id = data.name;
         return data as Atendimento;
@@ -113,7 +95,7 @@ export class AtendimentoService {
       updateAt: null
     }
 
-    this.http.post(`${this.baseUrl}/atendimento.json`, atendimentoCreate).subscribe({
+    this.http.post(`${this.baseUrl}.json`, atendimentoCreate).subscribe({
       next: (data: any) => {
         this.novoAtendimento = {
           id: data.name,
@@ -147,7 +129,7 @@ export class AtendimentoService {
       updateAt: new Date()
     }
 
-    this.http.put(`${this.baseUrl}/atendimento/${form.id}.json`, atendimentoEdit).subscribe({
+    this.http.put(`${this.baseUrl}/${form.id}.json`, atendimentoEdit).subscribe({
       next: (data: any) => {
         this._atendimentoAtualizado = {
           id: data.id,
@@ -164,7 +146,7 @@ export class AtendimentoService {
   }
 
   deleteAtendimento(id: string) {
-    return this.http.delete(`${this.baseUrl}/atendimento/${id}.json`).subscribe({
+    return this.http.delete(`${this.baseUrl}/${id}.json`).subscribe({
       next: (data: any) => {
         // console.log(data);
       },

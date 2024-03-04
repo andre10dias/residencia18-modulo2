@@ -70,8 +70,9 @@
                         [ngClass]="{'invalid-field': atendimentosForm.get('raca')?.invalid 
                             && atendimentosForm.get('raca')?.touched}"
                     >
+                        <mat-option [value]="">Selecione...</mat-option>
                         @for (raca of racas; track raca) {
-                            <mat-option [value]="raca.value">{{raca.viewValue}}</mat-option>
+                            <mat-option [value]="raca.nome">{{raca.nome}}</mat-option>
                         }
                     </mat-select>
                     <div>

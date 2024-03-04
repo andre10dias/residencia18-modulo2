@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AtendimentoService } from '../../../../service/atendimento.service';
 
 import { TipoEnum } from '../../../../enum/tipo-enum';
+import { RacaService } from '../../../../service/raca.service';
 
 @Component({
   selector: 'app-atendimentos-form',
@@ -15,11 +16,14 @@ export class AtendimentosFormComponent implements OnInit {
   @Input() dadosItemSelecionado: any;
 
   atendimentosForm: FormGroup;
-  tipos: any[] = this.service.tipo;
+  tipos: any[] = this.atendimentoService.tipo;
   racas: any[] = [];
   btnText: string = 'Salvar';
 
-  constructor(private service: AtendimentoService) {
+  constructor(
+    private racaService: RacaService,
+    private atendimentoService: AtendimentoService
+  ) {
     this.atendimentosForm = new FormGroup({
       'id': new FormControl(null),
       'nomeTutor': new FormControl(null, Validators.required),
@@ -51,12 +55,15 @@ export class AtendimentosFormComponent implements OnInit {
   changeTipo(tipo: number) {
     this.racas = [];
 
-    if (tipo == TipoEnum.GATO) {
-      this.racas = this.service.racaGato;
-    } 
-    else if (tipo == TipoEnum.CACHORRO) {
-      this.racas = this.service.racaCachorro;
-    }
+    this.racaService.getRacasByTipo(tipo).subscribe({
+      next: (data: any) => {
+        // console.log('data: ', data);
+        this.racas = data;
+      },
+      error: (error: any) => {
+        console.log('error: ', error)
+      }
+    });
   }
 
   onSubmit() {
