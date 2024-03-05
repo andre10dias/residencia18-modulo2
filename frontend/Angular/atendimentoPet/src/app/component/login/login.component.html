@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="content">
+        <div class="form-container">
+            <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div>
+                  <div>
+                      <mat-label>E-mail</mat-label>
+                      <div id="email">
+                          <input matInput type="email" placeholder="pat@example.com" formControlName="email"
+                              [ngClass]="{'invalid-field': loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched}"
+                          >
+                          <div>
+                              <mat-error *ngIf="!loginForm.get('email')?.valid && loginForm.get('email')?.touched"
+                              >{{mensagem}}</mat-error>
+                          </div>
+                      </div>
+                  </div>
+          
+                  <div>
+                      <mat-label>Senha</mat-label>
+                      <div id="senha">
+                          <input matInput type="password" formControlName="senha" placeholder="****"
+                              [ngClass]="{'invalid-field': loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched}"
+                          >
+                          <div>
+                              <mat-error *ngIf="!loginForm.get('senha')?.valid && loginForm.get('senha')?.touched"
+                              >{{mensagem}}</mat-error>
+                          </div>
+                      </div>
+                  </div>
+          
+                  <div>
+                      <button mat-button color="primary" type="submit" [disabled]="!loginForm.valid">{{modoLogin ? 'Login' : 'inscrever-se'}}</button>|
+                      <button mat-button color="primary" (click)="onTrocarModo()" type="button">{{ modoLogin ? 'inscrever-se': 'Login' }}</button>
+                  </div>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>

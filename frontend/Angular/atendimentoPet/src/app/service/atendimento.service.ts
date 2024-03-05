@@ -11,12 +11,14 @@ import { Atendimento } from '../model/atendimento/atendimento';
 import { AtendimentoCreateDTO } from '../model/atendimento/atendimento-create.dto';
 import { AtendimentoEditDTO } from '../model/atendimento/atendimento-edit.dto.';
 import { RacaService } from './raca.service';
+import { FirebaseCredentials } from '../model/firebase/firebase-credentials';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtendimentoService {
-  baseUrl = 'https://atendimento-pet-default-rtdb.firebaseio.com/atendimento';
+  fire: FirebaseCredentials = new FirebaseCredentials();
+  baseUrl: string = `${this.fire.baseUrl}/atendimento`;
 
   tipo: any[] = [
     {value: '', viewValue: 'Selecione...'},

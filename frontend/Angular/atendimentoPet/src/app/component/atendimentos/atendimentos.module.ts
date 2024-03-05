@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -27,7 +28,6 @@ import { AtendimentosComponent } from './atendimentos.component';
 import { AtendimentosListComponent } from './atendimentos-list/atendimentos-list.component';
 import { AtendimentosFormComponent } from './atendimentos-dialog/atendimentos-form/atendimentos-form.component';
 import { AtendimentosDialogComponent } from './atendimentos-dialog/atendimentos-dialog.component';
-import { HttpClientModule } from '@angular/common/http';
 import { AtendimentosDetalheDialogComponent } from './atendimentos-detalhe-dialog/atendimentos-detalhe-dialog.component';
 import { AtendimentosDetalheViewComponent } from './atendimentos-detalhe-dialog/atendimentos-detalhe-view/atendimentos-detalhe-view.component';
 

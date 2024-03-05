@@ -6,12 +6,14 @@ import { AtendimentoUtil } from '../util/atendimento.util';
 import { RacaCreateDTO } from '../model/raca/raca-create.dto';
 import { RacaListDTO } from '../model/raca/raca-list.dto';
 import { RacaTipoDTO } from '../model/raca/raca-tipo.dto';
+import { FirebaseCredentials } from '../model/firebase/firebase-credentials';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RacaService {
-  baseUrl = 'https://atendimento-pet-default-rtdb.firebaseio.com/raca';
+  fire: FirebaseCredentials = new FirebaseCredentials();
+  baseUrl: string = `${this.fire.baseUrl}/raca`;
 
   private novaRaca: RacaListDTO = {} as RacaListDTO;
 
