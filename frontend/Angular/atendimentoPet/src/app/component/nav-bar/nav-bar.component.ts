@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent {
 
-  constructor(private route: Router) { }
+  constructor(
+    private route: Router,
+    private service: AuthService
+  ) { }
 
   rotaHome() {
     this.route.navigate(['/home']);
@@ -16,6 +20,12 @@ export class NavBarComponent {
 
   rotaAtendimentos() {
     this.route.navigate(['/atendimentos']);
+  }
+
+  sair() {
+    localStorage.clear();
+    this.service.logout();
+    this.route.navigate(['/login']);
   }
 
 }

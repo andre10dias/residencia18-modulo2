@@ -12,12 +12,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AppRoutingModule } from './app-routing.module';
 import { AtendimentosModule } from './component/atendimentos/atendimentos.module';
 import { DialogModule } from './component/dialog/dialog.module';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './component/home/home.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { LoginComponent } from './component/login/login.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import { LoginComponent } from './component/login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule, 
     ReactiveFormsModule,
     DialogModule,
@@ -39,10 +43,12 @@ import { LoginComponent } from './component/login/login.component';
     MatMenuModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     AtendimentosModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

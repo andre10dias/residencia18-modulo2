@@ -12,7 +12,7 @@ import { FirebaseCredentials } from '../model/firebase/firebase-credentials';
 })
 export class AuthService {
   fire: FirebaseCredentials = new FirebaseCredentials();
-  baseUrl: string = `${this.fire.baseUrl}/auth`;
+  baseAuth: string = `${this.fire.baseAuth}/accounts`;
   apiKey: string = this.fire.apiKey;
 
   usuario: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(new Usuario('', '', '', new Date()));
@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signupUser(email: string, password: string) {
-   return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[suachaveaqui]', 
+   return this.http.post<AuthResponse>(`${this.baseAuth}:signUp?key=${this.apiKey}`, 
    {
       email: email,
       password: password,
@@ -36,13 +36,13 @@ export class AuthService {
         );
 
         this.usuario.next(usuario);
-        localStorage.setItem('userData', JSON.stringify(usuario));
+        localStorage.setItem('user', JSON.stringify(usuario));
       })
    );
   }
 
   loginUser(email: string, password: string) {
-    return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBbHrkiG6nZlw_1KEtq9senY33hAHhRz2c',
+    return this.http.post<AuthResponse>(`${this.baseAuth}:signInWithPassword?key=${this.apiKey}`,
     {
       email: email,
       password: password,
@@ -59,29 +59,29 @@ export class AuthService {
       );
 
       this.usuario.next(usuario);
-      localStorage.setItem('userData', JSON.stringify(usuario));
+      localStorage.setItem('user', JSON.stringify(usuario));
     }),
    );
   }
 
   autoLogin() {
-    const userData :{
+    const user :{
       email: string;
       id: string;
       _token: string;
       _tokenExpirationDate: string;
     
-    } = JSON.parse(localStorage.getItem('userData') as string);
+    } = JSON.parse(localStorage.getItem('user') as string);
 
-    if(!userData) {
+    if(!user) {
       return;
     }
 
     const loadedUser = new Usuario(
-      userData.email,
-      userData.id,
-      userData._token,
-      new Date(userData._tokenExpirationDate)
+      user.email,
+      user.id,
+      user._token,
+      new Date(user._tokenExpirationDate)
     );
 
     if(loadedUser.token) {
@@ -91,6 +91,16 @@ export class AuthService {
 
   logout() {
     this.usuario.next(new Usuario('', '', '', new Date()));
+  }
+
+  isAuthenticated(): boolean {
+    const user: Usuario = this.usuario.value;
+    return user.token !== this.usuario.token || !this.usuario.token ? false : true;
+  }
+
+  getToken(): string | null {
+    const user: Usuario = this.usuario.value;
+    return user.token;
   }
   
 }
