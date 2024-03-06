@@ -59,6 +59,7 @@ export class AuthService {
       );
 
       this.usuario.next(usuario);
+      console.log('[AuthService] loginUser: ', usuario);
       localStorage.setItem('user', JSON.stringify(usuario));
     }),
    );
@@ -94,8 +95,11 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    const user: Usuario = this.usuario.value;
-    return user.token !== this.usuario.token || !this.usuario.token ? false : true;
+    // const user: Usuario = this.usuario.value;
+    // return user.token !== this.user.token || !this.usuario.token ? false : true;
+    console.log('[AuthService] isAuthenticated: ', this.usuario.value);
+    const user: Usuario | null = this.usuario.value;
+    return user !== null && user.token !== null && user.token !== undefined;
   }
 
   getToken(): string | null {

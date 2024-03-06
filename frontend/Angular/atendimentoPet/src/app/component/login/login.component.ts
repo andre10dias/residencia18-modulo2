@@ -60,10 +60,10 @@ export class LoginComponent {
 
     // console.log(email, senha);
     if(this.modoLogin) {
-      // console.log('modoLogin');
+      console.log('modoLogin');
       this.service.loginUser(email, senha).subscribe({
         next: (data) => {
-          console.log(data);
+          console.log('[OnSubmit] loginUser - login component: ', data);
           this.estaCarregando = false;
           this.temErro = false;
           this.router.navigate(['/home']);
@@ -85,10 +85,10 @@ export class LoginComponent {
       });
     } 
     else {
-      // console.log('modoSignup');
+      console.log('modoSignup');
       this.service.signupUser(email, senha).subscribe({
         next: (data) => {
-          // console.log(data);
+          console.log(data);
           this.estaCarregando = false;
           this.temErro = false;
           this.router.navigate(['/home']);
