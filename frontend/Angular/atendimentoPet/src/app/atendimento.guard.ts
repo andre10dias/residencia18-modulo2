@@ -1,32 +1,31 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from './service/auth.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AtendimentoGuard implements CanActivate {
+export class AtendimentoGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // Check if the user is authenticated
+  canActivate(): boolean {
     const isAuthenticated = this.authService.isAuthenticated();
+    const url = this.router.url;
 
-    if (state.url === '/home') {
-      // If the current route is 'home', redirect to '/atendimentos' if authenticated
-      if (isAuthenticated) {
-        return this.router.parseUrl('/atendimentos');
-      } else {
-        return true; // Allow activation if not authenticated
-      }
-    } else {
-      // For other routes, return whether the user is authenticated or not
-      if (isAuthenticated) {
-        return true;
-      } else {
-        return this.router.parseUrl('/login');
-      }
+    // Se o usuário estiver autenticado, permita o acesso à rota solicitada
+    if (isAuthenticated) {
+      return true;
     }
+
+    // Se o usuário não estiver autenticado e tentar acessar a página de login, permita o acesso
+    if (url === '/login') {
+      return true;
+    }
+
+    // Se o usuário não estiver autenticado e tentar acessar qualquer outra página, redirecione-o para a página de login
+    this.router.navigate(['/login']);
+    return false;
   }
+
 }
+

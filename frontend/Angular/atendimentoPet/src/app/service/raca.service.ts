@@ -45,9 +45,9 @@ export class RacaService {
     // Meses são 0-based, então subtraímos 1
     // const data = new Date(Number(ano), Number(mes) - 1, Number(dia)); 
 
-    let racas = this.getListaRacas();
+    // let racas = this.getTipo1();
 
-    racas.forEach(form => {
+    // racas.forEach(form => {
       let racaCreate: RacaCreateDTO = {
         id: null,
         nome: form.nome,
@@ -56,7 +56,7 @@ export class RacaService {
         updateAt: null
       }
   
-      this.http.post(`${this.baseUrl}.json`, racaCreate).subscribe({
+      this.http.post(`${this.baseUrl}?tipo=1.json`, racaCreate).subscribe({
         next: (data: any) => {
           this.novaRaca = {
             id: data.name,
@@ -68,7 +68,7 @@ export class RacaService {
           console.log('error: ', error)
         }
       });
-    });
+    // });
   }
 
   getRacasByTipo(tipo: number): Observable<RacaTipoDTO[]> {
@@ -79,152 +79,304 @@ export class RacaService {
     );
   }
 
-  private getListaRacas(): RacaCreateDTO[] {
-    let racas: RacaCreateDTO[] = [];
+  // getTipo1(): RacaCreateDTO[] {
+  //   let racas: RacaCreateDTO[] = [];
 
-    let racaCreate1: RacaCreateDTO = {
-      id: null,
-      nome: 'Angorá',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate1: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Angorá',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate1);
+  //   racas.push(racaCreate1);
 
-    let racaCreate2: RacaCreateDTO = {
-      id: null,
-      nome: 'Bengal',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate2: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Bengal',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate2);
+  //   racas.push(racaCreate2);
 
-    let racaCreate3: RacaCreateDTO = {
-      id: null,
-      nome: 'British Shorthair',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate3: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'British Shorthair',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate3);
+  //   racas.push(racaCreate3);
 
-    let racaCreate4: RacaCreateDTO = {
-      id: null,
-      nome: 'Exótico',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate4: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Exótico',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate4);
+  //   racas.push(racaCreate4);
 
-    let racaCreate5: RacaCreateDTO = {
-      id: null,
-      nome: 'Persa',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate5: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Persa',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate5);
+  //   racas.push(racaCreate5);
 
-    let racaCreate6: RacaCreateDTO = {
-      id: null,
-      nome: 'Ragdoll',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate6: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Ragdoll',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate6);
+  //   racas.push(racaCreate6);
 
-    let racaCreate7: RacaCreateDTO = {
-      id: null,
-      nome: 'Siamês',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate7: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Siamês',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate7);
+  //   racas.push(racaCreate7);
 
-    let racaCreate8: RacaCreateDTO = {
-      id: null,
-      nome: 'Sphynx',
-      tipo: 1,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate8: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Sphynx',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate8);
+  //   racas.push(racaCreate8);
 
-    let racaCreate9: RacaCreateDTO = {
-      id: null,
-      nome: 'Buldogue',
-      tipo: 2,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   return racas;
+  // }
 
-    racas.push(racaCreate9);
+  // getTipo2(): RacaCreateDTO[] {
+  //   let racas: RacaCreateDTO[] = [];
 
-    let racaCreate10: RacaCreateDTO = {
-      id: null,
-      nome: 'Dachshund',
-      tipo: 2,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate9: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Buldogue',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate10);
+  //   racas.push(racaCreate9);
 
-    let racaCreate11: RacaCreateDTO = {
-      id: null,
-      nome: 'Pastor Alemão',
-      tipo: 2,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate10: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Dachshund',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate11);
+  //   racas.push(racaCreate10);
 
-    let racaCreate12: RacaCreateDTO = {
-      id: null,
-      nome: 'Poodle',
-      tipo: 2,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate11: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Pastor Alemão',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate12);
+  //   racas.push(racaCreate11);
 
-    let racaCreate13: RacaCreateDTO = {
-      id: null,
-      nome: 'Labrador',
-      tipo: 2,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate12: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Poodle',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate13);
+  //   racas.push(racaCreate12);
 
-    let racaCreate14: RacaCreateDTO = {
-      id: null,
-      nome: 'Rottweiler',
-      tipo: 2,
-      createAt: new Date(),
-      updateAt: null
-    }
+  //   let racaCreate13: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Labrador',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-    racas.push(racaCreate14);
+  //   racas.push(racaCreate13);
 
-    return racas;
+  //   let racaCreate14: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Rottweiler',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
 
-  }
+  //   racas.push(racaCreate14);
+
+  //   return racas;
+  // }
+
+  // private getListaRacas(): RacaCreateDTO[] {
+  //   let racas: RacaCreateDTO[] = [];
+
+  //   let racaCreate1: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Angorá',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate1);
+
+  //   let racaCreate2: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Bengal',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate2);
+
+  //   let racaCreate3: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'British Shorthair',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate3);
+
+  //   let racaCreate4: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Exótico',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate4);
+
+  //   let racaCreate5: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Persa',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate5);
+
+  //   let racaCreate6: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Ragdoll',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate6);
+
+  //   let racaCreate7: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Siamês',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate7);
+
+  //   let racaCreate8: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Sphynx',
+  //     tipo: 1,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate8);
+
+  //   let racaCreate9: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Buldogue',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate9);
+
+  //   let racaCreate10: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Dachshund',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate10);
+
+  //   let racaCreate11: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Pastor Alemão',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate11);
+
+  //   let racaCreate12: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Poodle',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate12);
+
+  //   let racaCreate13: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Labrador',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate13);
+
+  //   let racaCreate14: RacaCreateDTO = {
+  //     id: null,
+  //     nome: 'Rottweiler',
+  //     tipo: 2,
+  //     createAt: new Date(),
+  //     updateAt: null
+  //   }
+
+  //   racas.push(racaCreate14);
+
+  //   return racas;
+
+  // }
 
   // getRacasByTipo(tipo: number): Observable<RacaTipoDTO[]> {
   //   return this.http.get<RacaTipoDTO[]>(`${this.baseUrl}.json`, {

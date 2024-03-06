@@ -6,6 +6,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { Usuario } from '../model/usuario/usuario';
 import { AuthResponse } from '../model/auth/auth-response';
 import { FirebaseCredentials } from '../model/firebase/firebase-credentials';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,12 @@ export class AuthService {
 
   usuario: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(new Usuario('', '', '', new Date()));
 
-  constructor(private http: HttpClient) { }
+  private tokenExpirationTimer: any;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   signupUser(email: string, password: string) {
    return this.http.post<AuthResponse>(`${this.baseAuth}:signUp?key=${this.apiKey}`, 
@@ -66,38 +72,55 @@ export class AuthService {
   }
 
   autoLogin() {
-    const user :{
+    const userData: {
       email: string;
       id: string;
       _token: string;
       _tokenExpirationDate: string;
-    
-    } = JSON.parse(localStorage.getItem('user') as string);
+    } = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if(!user) {
-      return;
+    if (!userData.email || !userData._token || !userData._tokenExpirationDate) {
+      return; // Não há usuário autenticado armazenado localmente
     }
 
     const loadedUser = new Usuario(
-      user.email,
-      user.id,
-      user._token,
-      new Date(user._tokenExpirationDate)
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
     );
 
-    if(loadedUser.token) {
+    if (loadedUser.token) {
       this.usuario.next(loadedUser);
+      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+      this.autoLogout(expirationDuration); // Opção: Implemente autoLogout para deslogar automaticamente após o tempo de expiração
+    }
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+  
+  clearLogoutTimer() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+      this.tokenExpirationTimer = null;
     }
   }
 
   logout() {
+    localStorage.removeItem('user');
     this.usuario.next(new Usuario('', '', '', new Date()));
+    this.router.navigate(['/login']);
+    this.clearLogoutTimer();
   }
 
   isAuthenticated(): boolean {
     // const user: Usuario = this.usuario.value;
     // return user.token !== this.user.token || !this.usuario.token ? false : true;
-    console.log('[AuthService] isAuthenticated: ', this.usuario.value);
+    // console.log('[AuthService] isAuthenticated: ', this.usuario.value);
     const user: Usuario | null = this.usuario.value;
     return user !== null && user.token !== null && user.token !== undefined;
   }

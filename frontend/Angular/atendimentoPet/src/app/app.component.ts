@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RacaService } from './service/raca.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from './service/auth.service';
+
+// import { RacaService } from './service/raca.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +13,17 @@ export class AppComponent {
   hideNavbar: boolean = false;
   title = 'atendimentoPet';
 
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.hideNavbar = (event.url === '/login') || (event.url === '/');
-      }
-    });
+  constructor(private service: AuthService) {}
+
+  ngOnInit() {
+    this.service.autoLogin();
+  }
+
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.hideNavbar = (event.url === '/login') || (event.url === '/');
+    //   }
+    // });
   }
 
   // constructor(private service: RacaService) {
@@ -29,4 +36,4 @@ export class AppComponent {
   // }
 
 
-}
+// }
