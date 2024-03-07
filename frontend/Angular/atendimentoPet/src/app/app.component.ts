@@ -13,7 +13,16 @@ export class AppComponent {
   hideNavbar: boolean = false;
   title = 'atendimentoPet';
 
-  constructor(private service: AuthService) {}
+  constructor(
+    private router: Router, 
+    private service: AuthService
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.hideNavbar = (event.url === '/login') || (event.url === '/');
+      }
+    });
+  }
 
   ngOnInit() {
     this.service.autoLogin();
