@@ -19,7 +19,7 @@ export class AppComponent {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.hideNavbar = (event.url === '/login') || (event.url === '/');
+        this.hideNavbar = (event.url === '/login') || (event.url === '/') || (event.url === '');
       }
     });
   }
